@@ -9,7 +9,7 @@
 #   HUBOT_SLACK_INCOMINGWEBHOOK
 #
 # Commands:
-#   arekai-da: buy apple special "TARGET_URL" --time=crontime
+#   arekai-da: buy apple special "TARGET_URL" --time=CRONTIME
 #
 # Author:
 #   JumpeiArashi
