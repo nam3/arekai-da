@@ -13,8 +13,8 @@
 # Author:
 #   JumpeiArashi
 
-Account = require './models/account'
-Supreme = require './models/supreme/base'
+{Account} = require 'arekai-da-plugins'
+Supreme = require('arekai-da-plugins').Supreme.DirectLink
 {Task} = require './services/task'
 
 module.exports = (robot) ->
