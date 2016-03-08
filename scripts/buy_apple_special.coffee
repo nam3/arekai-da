@@ -9,13 +9,13 @@
 #   HUBOT_SLACK_INCOMINGWEBHOOK
 #
 # Commands:
-#   arekai-da: buy apple special "TARGET_URL" --time=crontime
+#   arekai-da: buy apple special "TARGET_URL" --time=CRONTIME
 #
 # Author:
 #   JumpeiArashi
 
-Account = require './models/account'
-AppleSpecialDeal = require './models/apple_specialdeals'
+{Account} = require 'arekai-da-plugins'
+AppleSpecialDeal = require('arekai-da-plugins').Apple.SpecialDeal
 HexColor = require './models/hex_color'
 Slack = require './services/slack/incoming_webhook'
 {Task} = require './services/task'

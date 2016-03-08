@@ -13,8 +13,8 @@
 # Author:
 #   JumpeiArashi
 
-Account = require './models/account'
-SupremeClothes = require './models/supreme/clothes'
+{Account} = require 'arekai-da-plugins'
+{SupremeClothes} = require('arekai-da-plugins').Supreme.Clothes
 SupremeUtils = require './utils/supreme'
 {Task} = require './services/task'
 

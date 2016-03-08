@@ -13,9 +13,9 @@
 # Author:
 #   JumpeiArashi
 
-Account = require './models/account'
-SupremeCreditCard = require './models/credit_card/supreme'
-SupremeNew = require './models/supreme/new'
+{Account} = require 'arekai-da-plugins'
+SupremeCreditCard = require('arekai-da-plugins').CreditCard.Supreme
+SupremeNew = require('arekai-da-plugins').Supreme.New
 SupremeUtils = require './utils/supreme'
 {Task} = require './services/task'
 

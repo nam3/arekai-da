@@ -1,6 +1,6 @@
 {
   "name": "arekai-da",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "one of nam3 bots",
   "main": "index.js",
   "scripts": {
@@ -29,9 +29,9 @@
     "hubot-diagnostics": "0.0.1",
     "hubot-help": "^0.1.2",
     "hubot-slack": "^3.4.2",
-    "lodash": "^4.2.1",
     "node-uuid": "^1.4.7",
-    "request": "^2.69.0"
+    "request": "^2.69.0",
+    "arekai-da-plugins": "JumpeiArashi/arekai-da-plugins"
   },
   "devDependencies": {
     "chai": "^3.4.1",

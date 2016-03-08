@@ -8,13 +8,13 @@
 #   HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
 #
 # Commands:
-#   arekai-da: buy nike shoe "TARGET_URL"
+#   arekai-da: buy nike shoe "TARGET_URL" --size=SIZE(e.g: 27, 27.5) --time=CRONTIME
 #
 # Author:
 #   JumpeiArashi
 
-Account = require './models/account'
-NikeShoe = require './models/nike/shoe'
+{Account} = require 'arekai-da-plugins'
+NikeShoe = require('arekai-da-plugins').Nike.Shoe
 {Task} = require './services/task'
 
 module.exports = (robot) ->

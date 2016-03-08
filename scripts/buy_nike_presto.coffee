@@ -13,8 +13,8 @@
 # Author:
 #   JumpeiArashi
 
-Account = require './models/account'
-NikeAirPresto = require './models/nike/presto'
+{Account} = require 'arekai-da-plugins'
+NikeAirPresto = require('arekai-da-plugins').Nike.Presto
 {Task} = require './services/task'
 
 module.exports = (robot) ->
