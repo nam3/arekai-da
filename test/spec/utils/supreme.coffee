@@ -2,7 +2,7 @@
 
 SupremeUtils = require '../../../scripts/utils/supreme'
 
-describe 'SupremeUtils', ->
+describe 'supreme', ->
 
   context '', ->
 
