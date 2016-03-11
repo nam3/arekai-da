@@ -1,31 +1,27 @@
-{Robot} = require 'hubot'
 {expect} = require 'chai'
+
+Helper = require '../../helper'
 
 describe 'buy_nike_shoe', ->
 
-  name = 'test-robot'
-  robot = undefined
-  regex = undefined
   url = 'http://www.supremenewyork.com/shop/accessories/keychain-pen/stainless-steel'
+  baseInput = "test-robot: buy supreme #{url}"
+  regex = Helper.importDispatcherRegex require '../../../scripts/buy_supreme'
 
-  robot = new Robot null, 'mock-adapter', false, name
-  require('../../../scripts/buy_supreme')(robot)
-  regex = robot.listeners[0].regex
-
-  context "with input = \"buy supreme #{url}\"", ->
+  context "with input = \"#{baseInput}\"", ->
 
     it 'gets only url', ->
 
-      match = regex.exec "#{name}: buy supreme #{url}"
+      match = regex.exec "#{baseInput}"
       expect match[1]
         .to.be.equal url
 
-  context "with input = \"buy supreme #{url} --time=00 00 11 * * *\"", ->
+  context "with input = \"#{baseInput}\"", ->
 
     it 'gets url and time',  ->
 
       time = '00 00 11 * * *'
-      match = regex.exec "#{name}: buy supreme #{url} --time=#{time}"
+      match = regex.exec "#{baseInput} --time=#{time}"
       expect match[1]
         .to.be.equal url
       expect match[2]

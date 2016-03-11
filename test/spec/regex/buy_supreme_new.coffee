@@ -1,20 +1,15 @@
-{Robot} = require 'hubot'
 {expect} = require 'chai'
+
+Helper = require '../../helper'
 
 describe 'buy_nike_shoe', ->
 
-  name = 'test-robot'
-  robot = undefined
-  regex = undefined
   imgAlt = 'Ah-0sjsjorc'
-  baseInput = "#{name}: buy supreme new #{imgAlt}"
+  baseInput = "test-robot: buy supreme new #{imgAlt}"
   size = 'l'
   creditCardFlag = 'true'
   time = '00 00 11 * * *'
-
-  robot = new Robot null, 'mock-adapter', false, name
-  require('../../../scripts/buy_supreme_new')(robot)
-  regex = robot.listeners[0].regex
+  regex = Helper.importDispatcherRegex require '../../../scripts/buy_supreme_new'
 
   context "with input = \"#{baseInput}\"", ->
 
