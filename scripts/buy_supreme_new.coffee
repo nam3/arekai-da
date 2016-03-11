@@ -17,6 +17,7 @@
 SupremeCreditCard = require('arekai-da-plugins').CreditCard.Supreme
 SupremeNew = require('arekai-da-plugins').Supreme.New
 SupremeUtils = require './utils/supreme'
+utils = require './utils/crontime'
 {Task} = require './services/task'
 
 module.exports = (robot) ->
@@ -26,7 +27,7 @@ module.exports = (robot) ->
     imgAlt = res.match[1]
     size = res.match[2]
     creditCardFlag = res.match[3]
-    crontime = res.match[4]
+    crontime = if res.match[4] then res.match[4] else utils.convert2Crontime 'now'
 
     creditCard = undefined
 
