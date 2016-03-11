@@ -15,4 +15,4 @@ describe 'crontime', ->
         diff = Math.round((crontime.convert2Crontime('now') - current) / 1000)
 
         expect diff
-          .to.be.within 10, 20
+          .to.be.within 6, 10
