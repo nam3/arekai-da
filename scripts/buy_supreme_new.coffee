@@ -17,7 +17,8 @@
 SupremeCreditCard = require('arekai-da-plugins').CreditCard.Supreme
 SupremeNew = require('arekai-da-plugins').Supreme.New
 SupremeUtils = require './utils/supreme'
-utils = require './utils/crontime'
+CrontimeUtils = require './utils/crontime'
+utils = require './utils/hubot'
 {Task} = require './services/task'
 
 module.exports = (robot) ->
@@ -27,7 +28,8 @@ module.exports = (robot) ->
     imgAlt = res.match[1]
     size = res.match[2]
     creditCardFlag = res.match[3]
-    crontime = if res.match[4] then res.match[4] else utils.convert2Crontime 'now'
+    crontime = if res.match[4] then res.match[4] else CrontimeUtils.convert2Crontime 'now'
+    dryrun = utils.isDryrun()
 
     creditCard = undefined
 
@@ -45,7 +47,7 @@ module.exports = (robot) ->
         supreme = new SupremeNew user.firstname, user.lastname, user.email, user.phonenumber, user.zipcode, user.state, user.city, user.address, imgAlt, creditCard, size
         name = "Buying Supreme New Item #{imgAlt}"
         fn = ->
-          supreme.execute()
+          supreme.execute(dryrun)
 
         task = new Task name, fn, crontime
         task.attach res
