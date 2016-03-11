@@ -16,7 +16,8 @@
 {Account} = require 'arekai-da-plugins'
 {SupremeClothes} = require('arekai-da-plugins').Supreme.Clothes
 SupremeUtils = require './utils/supreme'
-utils = require './utils/crontime'
+CrontimeUtils = require './utils/crontime'
+utils = require './utils/hubot'
 {Task} = require './services/task'
 
 module.exports = (robot) ->
@@ -25,8 +26,9 @@ module.exports = (robot) ->
 
     url = res.match[1]
     size = res.match[2] or 's'
-    crontime = if res.match[3] then res.match[3] else utils.convert2Crontime 'now'
+    crontime = if res.match[3] then res.match[3] else CrontimeUtils.convert2Crontime 'now'
     size = SupremeUtils.convertToSupremeSize size
+    dryrun += utils.isDryrun()
 
     account = new Account
       db: 'arekai-da'
@@ -41,7 +43,7 @@ module.exports = (robot) ->
 
         name = "Buying Supreme Clothes #{url}"
         fn = ->
-          supreme.execute()
+          supreme.execute(dryrun)
 
         task = new Task name, fn, crontime
         task.attach res
