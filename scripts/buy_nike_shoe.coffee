@@ -15,6 +15,7 @@
 
 {Account} = require 'arekai-da-plugins'
 NikeShoe = require('arekai-da-plugins').Nike.Shoe
+utils = require './utils/crontime'
 {Task} = require './services/task'
 
 module.exports = (robot) ->
@@ -23,7 +24,7 @@ module.exports = (robot) ->
 
     url = res.match[1]
     size = res.match[2] or '27'
-    crontime = res.match[3]
+    crontime = if res.match[3] then res.match[3] else utils.convert2Crontime 'now'
 
     account = new Account
       db: 'arekai-da'
