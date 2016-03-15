@@ -15,6 +15,7 @@
 
 {Account} = require 'arekai-da-plugins'
 NikeAirPresto = require('arekai-da-plugins').Nike.Presto
+utils = require './utils/crontime'
 {Task} = require './services/task'
 
 module.exports = (robot) ->

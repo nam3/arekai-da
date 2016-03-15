@@ -15,7 +15,8 @@
 
 {Account} = require 'arekai-da-plugins'
 AdidasShoe = require('arekai-da-plugins').Adidas.Shoe
-utils = require './utils/crontime'
+CronTimeUtils = require './utils/crontime'
+utils = require './utils/hubot'
 {Task} = require './services/task'
 
 module.exports = (robot) ->
@@ -24,7 +25,8 @@ module.exports = (robot) ->
 
     url = res.match[1]
     size = res.match[2] or '27.5'
-    crontime = if res.match[3] then res.match[3] else utils.convert2Crontime 'now'
+    crontime = if res.match[3] then res.match[3] else CronTimeUtils.convert2Crontime 'now'
+    dryrun = utils.isDryrun()
 
     account = new Account
       db: 'arekai-da'
@@ -35,16 +37,17 @@ module.exports = (robot) ->
 
     account.getAccount res.message.user.name, 'adidas'
       .then (user) ->
-        nike = new AdidasShoe user.name, user.password, url, size
+        adidas = new AdidasShoe user.name, user.password, url, size
+        adidas.login()
+          .then ->
+            name = "Buying Adidas Shoe #{url}"
+            fn = ->
+              adidas.execute(dryrun)
 
-        name = "Buying Adidas Shoe #{url}"
-        fn = ->
-          nike.execute()
+            task = new Task name, fn, crontime
+            task.attach res
 
-        task = new Task name, fn, crontime
-        task.attach res
-
-        res.send "Sir, yes, sir! 当該ﾉAdidasｽﾆｰｶｰｦ#{size}ﾃﾞ購入ｼﾏｽ. #{url}"
+            res.send "Sir, yes, sir! 当該ﾉAdidasｽﾆｰｶｰｦ#{size}ﾃﾞ購入ｼﾏｽ. #{url}"
 
       .catch (err) ->
         res.send err.message
