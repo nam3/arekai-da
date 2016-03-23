@@ -15,7 +15,6 @@
 
 {Account} = require 'arekai-da-plugins'
 AdidasShoe = require('arekai-da-plugins').Adidas.Shoe
-CronTimeUtils = require './utils/crontime'
 utils = require './utils/hubot'
 {Task} = require './services/task'
 
@@ -25,7 +24,7 @@ module.exports = (robot) ->
 
     url = res.match[1]
     size = res.match[2] or '27.5'
-    crontime = if res.match[3] then res.match[3] else CronTimeUtils.convert2Crontime 'now'
+    crontime = if res.match[3] then res.match[3] else utils.convert2Crontime 'now'
     dryrun = utils.isDryrun()
 
     account = new Account

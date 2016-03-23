@@ -15,7 +15,6 @@
 
 {Account} = require 'arekai-da-plugins'
 Supreme = require('arekai-da-plugins').Supreme.DirectLink
-CrontimeUtils = require './utils/crontime'
 utils = require './utils/hubot'
 {Task} = require './services/task'
 
@@ -24,7 +23,7 @@ module.exports = (robot) ->
   robot.respond /buy\s+supreme\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--time=(.+)|)$/, (res) ->
 
     url = res.match[1]
-    crontime = if res.match[2] then res.match[2] else CrontimeUtils.convert2Crontime 'now'
+    crontime = if res.match[2] then res.match[2] else utils.convert2Crontime 'now'
     dryrun = utils.isDryrun()
 
     account = new Account

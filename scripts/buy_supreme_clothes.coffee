@@ -16,7 +16,6 @@
 {Account} = require 'arekai-da-plugins'
 {SupremeClothes} = require('arekai-da-plugins').Supreme.Clothes
 SupremeUtils = require './utils/supreme'
-CrontimeUtils = require './utils/crontime'
 utils = require './utils/hubot'
 {Task} = require './services/task'
 
@@ -26,7 +25,7 @@ module.exports = (robot) ->
 
     url = res.match[1]
     size = res.match[2] or 's'
-    crontime = if res.match[3] then res.match[3] else CrontimeUtils.convert2Crontime 'now'
+    crontime = if res.match[3] then res.match[3] else utils.convert2Crontime 'now'
     size = SupremeUtils.convertToSupremeSize size
     dryrun += utils.isDryrun()
 
