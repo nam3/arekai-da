@@ -15,16 +15,17 @@
 
 {Account} = require 'arekai-da-plugins'
 NikeAirPresto = require('arekai-da-plugins').Nike.Presto
-utils = require './utils/crontime'
+utils = require './utils/hubot'
 {Task} = require './services/task'
 
 module.exports = (robot) ->
 
-  robot.respond /buy\s+nike\s+presto\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--size=([\w.]+)|)(?:\s*--time=(.+)|)$/, (res) ->
+  robot.respond /buy\s+nike\s+presto\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--size=([\w.]+)|)(?:\s*--purchase=([\w]+)|)(?:\s*--time=(.+)|)$/, (res) ->
 
     url = res.match[1]
     size = res.match[2]
-    crontime = if res.match[3] then res.match[3] else utils.convert2Crontime 'now'
+    purchaseFlag = if res.match[3] and res.match[3].toLowerCase() is 'true' then true else false
+    crontime = if res.match[4] then res.match[3] else utils.convert2Crontime 'now'
 
     account = new Account
       db: 'arekai-da'
@@ -39,7 +40,7 @@ module.exports = (robot) ->
 
         name = "Buying Nike Air Presto #{url}"
         fn = ->
-          nike.execute()
+          nike.execute(utils.isDryrun(), purchaseFlag)
 
         task = new Task name, fn, crontime
         task.attach res
