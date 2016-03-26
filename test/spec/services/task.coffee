@@ -4,6 +4,9 @@ Task = require '../../../scripts/services/task'
 
 describe 'describeTasks', ->
 
+  afterEach ->
+    Task.resetTasks()
+
   context 'no task', ->
 
     it 'gets no tasks', ->
@@ -60,14 +63,13 @@ describe 'Task', ->
 
     task = undefined
     name = 'Test Task'
-    res = {
-      send: -> return
-    }
+    emitter =
+      emit: -> return null
 
     beforeEach ->
       fn = ->
         return new Promise (resolve, reject) ->
-          resolve false
+          resolve true
 
       task = new Task.Task name, fn, new Date()
 
@@ -80,7 +82,7 @@ describe 'Task', ->
 
         it 'attaches observer', ->
 
-          task.attach res
+          task.attach [emitter]
 
           expect task.observers[0]
-            .to.be.equal res
+            .to.be.equal emitter

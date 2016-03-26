@@ -8,51 +8,35 @@
 #   HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
 #
 # Commands:
-#   arekai-da: buy supreme new "IMAGE_ALT_ATTRIBUTE" --size=s|m|l|xl --credit-card=true --time=CRONTIME
+#   arekai-da: buy supreme new "IMAGE_ALT_ATTRIBUTE" --size=s|m|l|xl --credit-card=false --from=1986-12-02T00:00:00 --interval=2 --times=10 --concurrency=2
 #
 # Author:
 #   JumpeiArashi
 
-{Account} = require 'arekai-da-plugins'
-SupremeCreditCard = require('arekai-da-plugins').CreditCard.Supreme
-SupremeNew = require('arekai-da-plugins').Supreme.New
-SupremeUtils = require './utils/supreme'
+Controller = require './controllers/buy_supreme_new'
 utils = require './utils/hubot'
-{Task} = require './services/task'
 
 module.exports = (robot) ->
 
-  robot.respond /buy\s+supreme\s+new\s+([\w_-]+)(?:\s*--size=(\w+)|)(?:\s*--credit-card=(false)|)(?:\s*--time=(.+)|)$/, (res) ->
-
-    imgAlt = res.match[1]
-    size = res.match[2]
+  robot.respond /buy\s+supreme\s+new\s+([\w_-]+)(?:\s*--size=(\w+)|)(?:\s*--credit-card=(false)|)(?:\s*--from=([T\d:-]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--times=([\d]+)|)(?:\s*--concurrency=([\d]+)|)$/, (res) ->
     #set true to default credit card flag
+    interval = res.match[5] or 1
+    times = res.match[6] or 20
     creditCardFlag = if not res.match[3] then true else false
-    crontime = if res.match[4] then res.match[4] else utils.convert2Crontime 'now'
-    dryrun = utils.isDryrun()
 
-    creditCard = undefined
+    controller = new Controller
+      slackName: res.message.user.name
+      creditCardFlag: creditCardFlag
+      imgAlt: res.match[1]
+      size: res.match[2]
+      dryrunFlag: utils.isDryrun()
+      room: res.message.room
+      from: res.match[4]
+      interval: interval
+      times: times
+      concurrency: res.match[7]
 
-    account = new Account
-      db: 'arekai-da'
-      clientId: process.env.HUBOT_GOOGLE_API_OAUTH2_CLIENT_ID
-      clientSecret: process.env.HUBOT_GOOGLE_API_OAUTH2_CLIENT_SECRET
-      redirectUrn: process.env.HUBOT_GOOGLE_API_OAUTH2_REDIRECT_URN
-      refreshToken: process.env.HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
-
-    account.getAccount res.message.user.name, 'supreme'
-      .then (user) ->
-        size = SupremeUtils.convertToSupremeSize size if size
-        creditCard = new SupremeCreditCard user.creditCardCompany, user.creditCardNumber, user.creditCardMonth, user.creditCardYear, user.securitycode  if creditCardFlag
-        supreme = new SupremeNew user.firstname, user.lastname, user.email, user.phonenumber, user.zipcode, user.state, user.city, user.address, imgAlt, creditCard, size
-        name = "Buying Supreme New Item #{imgAlt}"
-        fn = ->
-          supreme.execute(dryrun)
-
-        task = new Task name, fn, crontime
-        task.attach res
-
-        res.send "Sir, yes, sir! 商品ID #{imgAlt} ﾉSupremeｦ購入ｼﾏｽ"
-
+    controller.execute()
       .catch (err) ->
-        res.send "```#{err.stack}```"
+        errMessage = if err.hasOwnProperty('stack') then err.stack else err
+        console.error errMessage

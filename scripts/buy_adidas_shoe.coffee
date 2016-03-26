@@ -1,5 +1,5 @@
 # Description
-#   Purchase Adidas Shoe
+#   Buy(add to cart) Adidas Shoe
 #
 # Configuration:
 #   HUBOT_GOOGLE_API_OAUTH2_CLIENT_ID
@@ -8,45 +8,36 @@
 #   HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
 #
 # Commands:
-#   arekai-da: buy adidas shoe "TARGET_URL" --size=SIZE(e.g: 27.0, 27.5) --time=CRONTIME
+#   arekai-da: buy adidas shoe "TARGET_URL" --size=SIZE(e.g: 27.0, 27.5) --from=1986-12-02T00:00:00 --interval=2 --times=10 --concurrency=2
 #
 # Author:
 #   JumpeiArashi
 
-{Account} = require 'arekai-da-plugins'
-AdidasShoe = require('arekai-da-plugins').Adidas.Shoe
+Controller = require './controllers/buy_adidas_shoe'
 utils = require './utils/hubot'
-{Task} = require './services/task'
 
 module.exports = (robot) ->
 
-  robot.respond /buy\s+adidas\s+shoe\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--size=([\d.]+)|)(?:\s*--time=(.+)|)$/, (res) ->
+  robot.respond /buy\s+adidas\s+shoe\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--size=([\d.]+)|)(?:\s*--from=([T\d:-]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--times=([\d]+)|)(?:\s*--concurrency=([\d]+)|)$/, (res) ->
 
-    url = res.match[1]
-    size = res.match[2] or '27.5'
-    crontime = if res.match[3] then res.match[3] else utils.convert2Crontime 'now'
-    dryrun = utils.isDryrun()
+    size = res.match[2] or 'S'
+    interval = res.match[4] or 2
+    times = res.match[5] or 10
 
-    account = new Account
-      db: 'arekai-da'
-      clientId: process.env.HUBOT_GOOGLE_API_OAUTH2_CLIENT_ID
-      clientSecret: process.env.HUBOT_GOOGLE_API_OAUTH2_CLIENT_SECRET
-      redirectUrn: process.env.HUBOT_GOOGLE_API_OAUTH2_REDIRECT_URN
-      refreshToken: process.env.HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
+    res.send 'Sir, yes, sir! 購入準備ｦｽｽﾒﾏｽ.'
 
-    account.getAccount res.message.user.name, 'adidas'
-      .then (user) ->
-        adidas = new AdidasShoe user.name, user.password, url, size
-        adidas.login()
-          .then ->
-            name = "Buying Adidas Shoe #{url}"
-            fn = ->
-              adidas.execute(dryrun)
+    controller = new Controller
+      slackName: res.message.user.name
+      url: res.match[1]
+      size: size
+      dryrunFlag: utils.isDryrun()
+      room: res.message.room.name
+      from: res.match[3]
+      interval: interval
+      times: times
+      concurrency: Number res.match[6]
 
-            task = new Task name, fn, crontime
-            task.attach res
-
-            res.send "Sir, yes, sir! 当該ﾉAdidasｽﾆｰｶｰｦ#{size}ﾃﾞ購入ｼﾏｽ. #{url}"
-
+    controller.execute()
       .catch (err) ->
-        res.send err.message
+        message = if err.hasOwnProperty('stack') then err.stack else err
+        console.error message
