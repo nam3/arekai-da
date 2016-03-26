@@ -20,6 +20,8 @@ module.exports = class TaskCluster extends EventEmitter
       @notify """
         "#{@tasks[taskResults.indexOf(true)].name}" is completed:+1: #{if message then "\n#{message}" else ''}
       """
+      @tasks.forEach (task) ->
+        task.end()
       @removeListener('done', @checkAllTaskDone)
       return true
 
