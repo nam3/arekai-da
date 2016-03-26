@@ -2,8 +2,7 @@
 CreditCard = require('arekai-da-plugins').CreditCard.Supreme
 IncomingWebhook = require '../services/slack/incoming_webhook'
 Supreme = require('arekai-da-plugins').Supreme.New
-{Task} = require '../services/task'
-TaskCluster = require '../services/task_cluster'
+createTaskCluster = require '../services/create_task_cluster'
 utils = require '../utils/supreme'
 
 module.exports = class BuySupremeNew
@@ -13,9 +12,12 @@ module.exports = class BuySupremeNew
     @creditCardFlag
     @imgAlt
     @size
-    @cronTime
     @dryrunFlag
     @room
+    @from
+    @interval
+    @times
+    @concurrency
   }) ->
     @slack = new IncomingWebhook
       incomingWebhookUrl: process.env.HUBOT_SLACK_INCOMINGWEBHOOK
@@ -34,14 +36,17 @@ module.exports = class BuySupremeNew
       .then (user) =>
         size = utils.convertToSupremeSize(@size) if @size
         creditCard = if @creditCardFlag then new CreditCard user.creditCardCompany, user.creditCardNumber, user.creditCardMonth, user.creditCardYear, user.securitycode else undefined
-        supreme = new Supreme user.firstname, user.lastname, user.email, user.phonenumber, user.zipcode, user.state, user.city, user.address, @imgAlt, creditCard, size
         taskName = "<@#{@slackName}>: Buying Supreme New Item #{@imgAlt}"
-        fn = =>
-          supreme.execute(@dryrunFlag)
+        factory = =>
+          supreme = new Supreme user.firstname, user.lastname, user.email, user.phonenumber, user.zipcode, user.state, user.city, user.address, @imgAlt, creditCard, size
+          return () => supreme.execute(@dryrunFlag)
 
-        task = new Task taskName, fn, @cronTime
-        taskCluster = new TaskCluster(@slack, [task])
-        task.attach [taskCluster]
+        params =
+          from: @from
+          interval: @interval
+          times: @times
+          concurrency: @concurrency
+        createTaskCluster taskName, factory, @slack, params
 
       .catch (err) =>
         errMessage = if err.hasOwnProperty('stack') then err.stack else err

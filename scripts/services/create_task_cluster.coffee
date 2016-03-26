@@ -11,12 +11,16 @@ module.exports = (taskName, factory, notifier, params = {}) ->
   executeDatetimes = [0..(times - 1)].map (time) ->
     return from.clone().add(interval * time, 'seconds').toDate()
 
+  if concurrency > 1
+    incrementsDatetime = [].concat executeDatetimes
+    [2..concurrency].forEach ->
+      executeDatetimes = executeDatetimes.concat incrementsDatetime
+
   tasks = executeDatetimes.map (datetime) ->
     new Task taskName, factory(), datetime
 
-  if concurrency > 1
-    incrementalTasks = [].concat tasks
-    [2..concurrency].forEach ->
-      tasks = tasks.concat incrementalTasks
+  taskCluster = new TaskCluster notifier, tasks
+  tasks.forEach (task) ->
+    task.attach [taskCluster]
 
-  return new TaskCluster notifier, tasks
+  return taskCluster
