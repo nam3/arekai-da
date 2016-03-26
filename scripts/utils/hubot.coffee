@@ -1,5 +1,15 @@
 Moment = require 'moment-timezone'
 
+isValidDatetime = (datetime) ->
+
+  if datetime.length < 18
+    throw new Error "`#{datetime}` is invalid datetime format. e.g: 1986-12-02T00:00:00"
+
+  unless Moment(datetime).isValid()
+    throw new Error "`#{datetime}` is invalid datetime format. e.g: 1986-12-02T00:00:00"
+
+  return datetime
+
 convert2Crontime = (datetime) ->
 
   if datetime is 'now'
@@ -13,4 +23,5 @@ is_dry_run = ->
 
 module.exports =
   isDryrun: is_dry_run
+  isValidDatetime: isValidDatetime
   convert2Crontime: convert2Crontime

@@ -2,8 +2,9 @@
 CreditCard = require('arekai-da-plugins').CreditCard.Supreme
 IncomingWebhook = require '../services/slack/incoming_webhook'
 Supreme = require('arekai-da-plugins').Supreme.New
+SupremeUtils = require '../utils/supreme'
 createTaskCluster = require '../services/create_task_cluster'
-utils = require '../utils/supreme'
+utils = require '../utils/hubot'
 
 module.exports = class BuySupremeNew
 
@@ -34,7 +35,8 @@ module.exports = class BuySupremeNew
 
     @account.getAccount @slackName, 'supreme'
       .then (user) =>
-        size = utils.convertToSupremeSize(@size) if @size
+        utils.isValidDatetime(@from) if @from
+        size = SupremeUtils.convertToSupremeSize(@size) if @size
         creditCard = if @creditCardFlag then new CreditCard user.creditCardCompany, user.creditCardNumber, user.creditCardMonth, user.creditCardYear, user.securitycode else undefined
         taskName = "<@#{@slackName}>: Buying Supreme New Item #{@imgAlt}"
         factory = =>

@@ -18,19 +18,22 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /buy\s+supreme\s+new\s+([\w_-]+)(?:\s*--size=(\w+)|)(?:\s*--credit-card=(false)|)(?:\s*--time=(.+)|)$/, (res) ->
+  robot.respond /buy\s+supreme\s+new\s+([\w_-]+)(?:\s*--size=(\w+)|)(?:\s*--credit-card=(false)|)(?:\s*--from=([T\d:-]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--times=([\d]+)|)(?:\s*--concurrency=([\d]+)|)$/, (res) ->
     #set true to default credit card flag
     creditCardFlag = if not res.match[3] then true else false
-    crontime = if res.match[4] then res.match[4] else utils.convert2Crontime 'now'
+    console.log res.match[4]
 
     controller = new Controller
       slackName: res.message.user.name
       creditCardFlag: creditCardFlag
       imgAlt: res.match[1]
       size: res.match[2]
-      cronTime: crontime
       dryrunFlag: utils.isDryrun()
       room: res.message.room
+      from: res.match[4]
+      interval: res.match[5]
+      times: res.match[6]
+      concurrency: res.match[7]
 
     controller.execute()
       .catch (err) ->
