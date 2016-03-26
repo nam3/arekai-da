@@ -8,7 +8,7 @@
 #   HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
 #
 # Commands:
-#   arekai-da: buy supreme new "IMAGE_ALT_ATTRIBUTE" --size=s|m|l|xl --credit-card=false --time=CRONTIME
+#   arekai-da: buy supreme new "IMAGE_ALT_ATTRIBUTE" --size=s|m|l|xl --credit-card=false --from=1986-12-02T00:00:00 --interval=2 --times=10 --concurrency=2
 #
 # Author:
 #   JumpeiArashi
@@ -20,8 +20,9 @@ module.exports = (robot) ->
 
   robot.respond /buy\s+supreme\s+new\s+([\w_-]+)(?:\s*--size=(\w+)|)(?:\s*--credit-card=(false)|)(?:\s*--from=([T\d:-]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--times=([\d]+)|)(?:\s*--concurrency=([\d]+)|)$/, (res) ->
     #set true to default credit card flag
+    interval = res.match[5] or 1
+    times = res.match[6] or 20
     creditCardFlag = if not res.match[3] then true else false
-    console.log res.match[4]
 
     controller = new Controller
       slackName: res.message.user.name
@@ -31,8 +32,8 @@ module.exports = (robot) ->
       dryrunFlag: utils.isDryrun()
       room: res.message.room
       from: res.match[4]
-      interval: res.match[5]
-      times: res.match[6]
+      interval: interval
+      times: times
       concurrency: res.match[7]
 
     controller.execute()
