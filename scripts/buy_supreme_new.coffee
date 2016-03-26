@@ -13,46 +13,23 @@
 # Author:
 #   JumpeiArashi
 
-{Account} = require 'arekai-da-plugins'
-SupremeCreditCard = require('arekai-da-plugins').CreditCard.Supreme
-SupremeNew = require('arekai-da-plugins').Supreme.New
-SupremeUtils = require './utils/supreme'
+Controller = require './controllers/buy_supreme_new'
 utils = require './utils/hubot'
-{Task} = require './services/task'
 
 module.exports = (robot) ->
 
   robot.respond /buy\s+supreme\s+new\s+([\w_-]+)(?:\s*--size=(\w+)|)(?:\s*--credit-card=(false)|)(?:\s*--time=(.+)|)$/, (res) ->
 
-    imgAlt = res.match[1]
-    size = res.match[2]
     #set true to default credit card flag
     creditCardFlag = if not res.match[3] then true else false
     crontime = if res.match[4] then res.match[4] else utils.convert2Crontime 'now'
-    dryrun = utils.isDryrun()
 
-    creditCard = undefined
+    controller = new Controller
+      slackName: res.message.user.name
+      creditCardFlag: creditCardFlag
+      imgAlt: res.match[1]
+      size: res.match[2]
+      cronTime: crontime
+      dryrunFlag: utils.isDryrun()
 
-    account = new Account
-      db: 'arekai-da'
-      clientId: process.env.HUBOT_GOOGLE_API_OAUTH2_CLIENT_ID
-      clientSecret: process.env.HUBOT_GOOGLE_API_OAUTH2_CLIENT_SECRET
-      redirectUrn: process.env.HUBOT_GOOGLE_API_OAUTH2_REDIRECT_URN
-      refreshToken: process.env.HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
-
-    account.getAccount res.message.user.name, 'supreme'
-      .then (user) ->
-        size = SupremeUtils.convertToSupremeSize size if size
-        creditCard = new SupremeCreditCard user.creditCardCompany, user.creditCardNumber, user.creditCardMonth, user.creditCardYear, user.securitycode  if creditCardFlag
-        supreme = new SupremeNew user.firstname, user.lastname, user.email, user.phonenumber, user.zipcode, user.state, user.city, user.address, imgAlt, creditCard, size
-        name = "Buying Supreme New Item #{imgAlt}"
-        fn = ->
-          supreme.execute(dryrun)
-
-        task = new Task name, fn, crontime
-        task.attach res
-
-        res.send "Sir, yes, sir! 商品ID #{imgAlt} ﾉSupremeｦ購入ｼﾏｽ"
-
-      .catch (err) ->
-        res.send "```#{err.stack}```"
+    controller.execute()
