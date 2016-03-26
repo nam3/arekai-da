@@ -7,7 +7,7 @@ describe 'buy_nike_shoe', ->
   imgAlt = 'Ah-0sjsjorc'
   baseInput = "test-robot: buy supreme new #{imgAlt}"
   size = 'l'
-  creditCardFlag = 'true'
+  creditCardFlag = 'false'
   time = '00 00 11 * * *'
   regex = Helper.importDispatcherRegex require '../../../scripts/buy_supreme_new'
 
@@ -43,7 +43,7 @@ describe 'buy_nike_shoe', ->
       expect match[2]
         .to.be.equal undefined
       expect match[3]
-        .to.be.equal 'true'
+        .to.be.equal creditCardFlag
       expect match[4]
         .to.be.equal undefined
 
