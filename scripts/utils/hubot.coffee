@@ -10,6 +10,9 @@ isValidDatetime = (datetime) ->
 
   return datetime
 
+nowPlus8Seconds = () ->
+  return Moment.tz('Asia/Tokyo').add(8, 'seconds').toDate()
+
 convert2Crontime = (datetime) ->
 
   if datetime is 'now'
@@ -25,3 +28,4 @@ module.exports =
   isDryrun: is_dry_run
   isValidDatetime: isValidDatetime
   convert2Crontime: convert2Crontime
+  nowPlus8Seconds: nowPlus8Seconds

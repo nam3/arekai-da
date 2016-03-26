@@ -1,19 +1,17 @@
 {Account} = require 'arekai-da-plugins'
-CreditCard = require('arekai-da-plugins').CreditCard.Supreme
 IncomingWebhook = require '../services/slack/incoming_webhook'
-Supreme = require('arekai-da-plugins').Supreme.New
-SupremeUtils = require '../utils/supreme'
+Nike = require('arekai-da-plugins').Nike.Shoe
 createTaskCluster = require '../services/create_task_cluster'
 utils = require '../utils/hubot'
 
-module.exports = class BuySupremeNew
+module.exports = class BuyNikeShoe
 
   constructor: ({
     @slackName
-    @creditCardFlag
-    @imgAlt
+    @url
     @size
     @dryrunFlag
+    @purchaseFlag
     @room
     @from
     @interval
@@ -22,7 +20,7 @@ module.exports = class BuySupremeNew
   }) ->
     @slack = new IncomingWebhook
       incomingWebhookUrl: process.env.HUBOT_SLACK_INCOMINGWEBHOOK
-      title: "#{@slackName}: Buying Supreme New Item #{@imgAlt}"
+      title: "#{@slackName}: Buying Nike Shoe #{@url}"
       channel: @room
     @account = new Account
       db: 'arekai-da'
@@ -33,18 +31,16 @@ module.exports = class BuySupremeNew
 
   execute: =>
 
-    @account.getAccount @slackName, 'supreme'
+    @account.getAccount @slackName, 'nike'
       .then (user) =>
         if @from
           utils.isValidDatetime(@from)
         else
           @from = utils.nowPlus8Seconds()
-        size = SupremeUtils.convertToSupremeSize(@size) if @size
-        creditCard = if @creditCardFlag then new CreditCard user.creditCardCompany, user.creditCardNumber, user.creditCardMonth, user.creditCardYear, user.securitycode else undefined
-        taskName = "<@#{@slackName}>: Buying Supreme New Item #{@imgAlt}"
+        taskName = "<@#{@slackName}>: Buying Nike Shoe #{@url}"
         factory = =>
-          supreme = new Supreme user.firstname, user.lastname, user.email, user.phonenumber, user.zipcode, user.state, user.city, user.address, @imgAlt, creditCard, size
-          return => supreme.execute(@dryrunFlag)
+          nike = new Nike user.name, user.password, @url, @size
+          return => nike.execute(@dryrunFlag, @purchaseFlag)
 
         params =
           from: @from
@@ -54,5 +50,5 @@ module.exports = class BuySupremeNew
         createTaskCluster taskName, factory, @slack, params
 
       .catch (err) =>
-        errMessage = if err.hasOwnProperty('stack') then err.stack else err
-        @slack.send errMessage
+        message = if err.hasOwnProperty('stack') then err.stack else err
+        @slack.send message
