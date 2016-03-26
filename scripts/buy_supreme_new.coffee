@@ -8,7 +8,7 @@
 #   HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
 #
 # Commands:
-#   arekai-da: buy supreme new "IMAGE_ALT_ATTRIBUTE" --size=s|m|l|xl --credit-card=true --time=CRONTIME
+#   arekai-da: buy supreme new "IMAGE_ALT_ATTRIBUTE" --size=s|m|l|xl --credit-card=false --time=CRONTIME
 #
 # Author:
 #   JumpeiArashi
@@ -19,7 +19,6 @@ utils = require './utils/hubot'
 module.exports = (robot) ->
 
   robot.respond /buy\s+supreme\s+new\s+([\w_-]+)(?:\s*--size=(\w+)|)(?:\s*--credit-card=(false)|)(?:\s*--time=(.+)|)$/, (res) ->
-
     #set true to default credit card flag
     creditCardFlag = if not res.match[3] then true else false
     crontime = if res.match[4] then res.match[4] else utils.convert2Crontime 'now'
@@ -34,3 +33,6 @@ module.exports = (robot) ->
       room: res.message.room
 
     controller.execute()
+      .catch (err) ->
+        errMessage = if err.hasOwnProperty('stack') then err.stack else err
+        console.error errMessage

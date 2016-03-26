@@ -6,11 +6,9 @@ tasks = []
 
 class Task
 
-  constructor: (@name, execute, cronTime) ->
-    cronTime ?= '*/5 * * * * *'
-
+  constructor: (@name, execute, cronTime = '*/5 * * * * *') ->
     tasks.push this
-
+    @state = undefined
     @observers = []
     @id = Uuid.v4()
     @job = new CronJob
@@ -18,34 +16,28 @@ class Task
       onTick: =>
         execute()
           .then (result) =>
-            if result
-              @end()
+            @state = result
+            @end()
           .catch (err) =>
-            eMessage = if err.stack then err.stack else err
-            @notify "```#{eMessage}```"
-
+            @state = false
+            message = if err.stack then err.stack else err
+            @end(message)
       start: true
       timeZone: 'Asia/Tokyo'
 
-  end: =>
+  end: (message) =>
     tasks.forEach (task, index) =>
       if task.id is @id
         @job.stop()
         tasks.splice index, 1
+        @notify(message)
 
-        @notify """
-          Completed following task :+1:
-          ```
-          #{@name}
-          ```
-        """
-
-  attach: (res) =>
-    @observers.push res
+  attach: (observers) =>
+    @observers = @observers.concat observers
 
   notify: (message) =>
     @observers.forEach (observer) ->
-      observer.send message
+      observer.emit 'done', message
 
 describeTasks = ->
 
