@@ -10,7 +10,7 @@ isValidDatetime = (datetime) ->
 
   return datetime
 
-nowPlus8Seconds = () ->
+nowPlus8Seconds = ->
   return Moment.tz('Asia/Tokyo').add(8, 'seconds').toDate()
 
 convert2Crontime = (datetime) ->

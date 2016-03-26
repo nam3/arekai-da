@@ -43,4 +43,3 @@ module.exports = (robot) ->
       .catch (err) ->
         message = if err.hasOwnProperty('stack') then err.stack else err
         console.error message
-
