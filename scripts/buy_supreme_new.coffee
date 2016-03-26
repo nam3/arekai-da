@@ -22,11 +22,12 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /buy\s+supreme\s+new\s+([\w_-]+)(?:\s*--size=(\w+)|)(?:\s*--credit-card=(true)|)(?:\s*--time=(.+)|)$/, (res) ->
+  robot.respond /buy\s+supreme\s+new\s+([\w_-]+)(?:\s*--size=(\w+)|)(?:\s*--credit-card=(false)|)(?:\s*--time=(.+)|)$/, (res) ->
 
     imgAlt = res.match[1]
     size = res.match[2]
-    creditCardFlag = res.match[3]
+    #set true to default credit card flag
+    creditCardFlag = if not res.match[3] then true else false
     crontime = if res.match[4] then res.match[4] else utils.convert2Crontime 'now'
     dryrun = utils.isDryrun()
 
