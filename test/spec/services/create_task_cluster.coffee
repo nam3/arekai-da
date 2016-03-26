@@ -1,15 +1,19 @@
 {expect} = require 'chai'
 
+{resetTasks} = require '../../../scripts/services/task'
 createTaskCluster = require '../../../scripts/services/create_task_cluster'
 
 describe 'create_task_cluster', ->
 
   factory = ->
-    return () ->
+    return ->
       return new Promise (resolve, reject) ->
         resolve true
   taskName = 'Test Task'
   datetime = "1986-12-02T00:00:00"
+
+  afterEach ->
+    resetTasks()
 
   context 'default parameters', ->
 

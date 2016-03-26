@@ -29,7 +29,7 @@ describe 'TaskCluster', ->
     context 'when one task is completed', ->
 
       it 'returns true', ->
-        cluster.tasks = [{state: undefined}, {state: true}]
+        cluster.tasks = [{state: undefined, end: ->}, {state: true, end: ->}]
         expect cluster.checkAllTaskDone()
           .to.be.true
 

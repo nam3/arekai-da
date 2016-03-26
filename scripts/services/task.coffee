@@ -41,7 +41,6 @@ class Task
 
 describeTasks = ->
 
-
   displayTasks = tasks.map (task) ->
     return {
       id: task.id
@@ -51,6 +50,12 @@ describeTasks = ->
 
   return displayTasks
 
+resetTasks = ->
+  tasks.forEach (task) ->
+    task.end()
+  tasks = []
+
 module.exports =
   Task: Task
   describeTasks: describeTasks
+  resetTasks: resetTasks

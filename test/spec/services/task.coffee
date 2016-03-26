@@ -4,6 +4,9 @@ Task = require '../../../scripts/services/task'
 
 describe 'describeTasks', ->
 
+  afterEach ->
+    Task.resetTasks()
+
   context 'no task', ->
 
     it 'gets no tasks', ->

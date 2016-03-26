@@ -39,7 +39,7 @@ module.exports = class BuySupremeNew
         taskName = "<@#{@slackName}>: Buying Supreme New Item #{@imgAlt}"
         factory = =>
           supreme = new Supreme user.firstname, user.lastname, user.email, user.phonenumber, user.zipcode, user.state, user.city, user.address, @imgAlt, creditCard, size
-          return () => supreme.execute(@dryrunFlag)
+          return => supreme.execute(@dryrunFlag)
 
         params =
           from: @from
