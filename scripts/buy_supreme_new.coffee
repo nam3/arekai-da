@@ -31,5 +31,6 @@ module.exports = (robot) ->
       size: res.match[2]
       cronTime: crontime
       dryrunFlag: utils.isDryrun()
+      room: res.message.room
 
     controller.execute()
