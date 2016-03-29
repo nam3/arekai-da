@@ -24,6 +24,7 @@ incomingWebhook = class SlackIncomingWebhook
           ]
           mrkdwn_in: ['fields']
         ]
+      slackAttachment.channel = @channel if @channel
 
       options =
         uri: @incomingWebhookUrl
