@@ -1,6 +1,7 @@
 #TODO reimplement this module by EventEmitter
-Uuid = require 'node-uuid'
 {CronJob} = require 'cron'
+Uuid = require 'node-uuid'
+Moment = require 'moment-timezone'
 
 tasks = []
 
@@ -11,13 +12,14 @@ class Task
     @state = undefined
     @observers = []
     @id = Uuid.v4()
+    @datetime = Moment(cronTime).toDate()
     @job = new CronJob
       cronTime: cronTime
       onTick: =>
         execute()
           .then (result) =>
             @state = result
-            @end()
+            @end("at #{@datetime}")
           .catch (err) =>
             @state = false
             message = if err.stack then err.stack else err
@@ -42,10 +44,11 @@ class Task
 describeTasks = ->
 
   displayTasks = tasks.map (task) ->
+
     return {
       id: task.id
       name: task.name
-      crontime: task.job.cronTime.source
+      datetime: task.datetime
     }
 
   return displayTasks
