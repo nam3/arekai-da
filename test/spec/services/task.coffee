@@ -24,7 +24,7 @@ describe 'describeTasks', ->
         return new Promise (resolve, reject) ->
           resolve false
 
-      task = new Task.Task name, fn
+      task = new Task.Task name, fn, new Date()
 
     afterEach ->
       task.end()
@@ -36,7 +36,7 @@ describe 'describeTasks', ->
       expect tasks.length
         .to.be.equal 1
       expect tasks[0]
-        .to.have.all.keys 'id', 'name', 'crontime'
+        .to.have.all.keys 'id', 'name', 'datetime'
 
   context 'one task is end', ->
 
