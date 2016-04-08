@@ -24,6 +24,8 @@ module.exports = (robot) ->
     times = res.match[6] or 20
     creditCardFlag = if not res.match[3] then true else false
 
+    res.send 'Sir, yes, sir! 購入準備ｦｽｽﾒﾏｽ'
+
     controller = new Controller
       slackName: res.message.user.name
       creditCardFlag: creditCardFlag
