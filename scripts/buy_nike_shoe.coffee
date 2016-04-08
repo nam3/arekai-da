@@ -33,7 +33,7 @@ module.exports = (robot) ->
       size: size
       dryrunFlag: utils.isDryrun()
       purchaseFlag: purchaseFlag
-      room: res.message.room.name
+      room: res.message.room
       from: res.match[4]
       interval: interval
       times: times
