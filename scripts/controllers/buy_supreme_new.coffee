@@ -40,10 +40,10 @@ module.exports = class BuySupremeNew
         else
           @from = utils.nowPlus8Seconds()
         size = SupremeUtils.convertToSupremeSize(@size) if @size
-        creditCard = if @creditCardFlag then new CreditCard user.creditCardCompany, user.creditCardNumber, user.creditCardMonth, user.creditCardYear, user.securitycode else undefined
+        creditCard = if @creditCardFlag then new CreditCard user.creditcard_company, user.creditcard_number, user.creditcard_month, user.creditcard_year, user.creditcard_security_code else undefined
         taskName = "<@#{@slackName}>: Buying Supreme New Item #{@imgAlt}"
         factory = =>
-          supreme = new Supreme user.firstname, user.lastname, user.email, user.phonenumber, user.zipcode, user.state, user.city, user.address, @imgAlt, creditCard, size
+          supreme = new Supreme user.first_name, user.last_name, user.email, user.phone_number, user.zipcode, user.state, user.city, user.address, @imgAlt, creditCard, size
           return => supreme.execute(@dryrunFlag)
 
         params =
