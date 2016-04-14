@@ -18,7 +18,7 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /buy\s+sea\s+bag\s+(?:\s*--from=([T\d:-]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--times=([\d]+)|)(?:\s*--concurrency=([\d]+)|)$/, (res) ->
+  robot.respond /buy\s+sea\s+bag(?:\s*--from=([T\d:-]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--times=([\d]+)|)(?:\s*--concurrency=([\d]+)|)$/, (res) ->
 
     interval = res.match[2] or 2
     times = res.match[3] or 10
