@@ -42,12 +42,12 @@ describe 'buy_supreme', ->
 
       match = regex.exec "#{baseInput} --from=#{from} --interval=#{interval} --times=#{times} --concurrency=#{concurrency}"
       expect match[1]
-      .to.be.equal imgAlt
+        .to.be.equal imgAlt
       expect match[2]
-      .to.be.equal from
+        .to.be.equal from
       expect match[3]
-      .to.be.equal interval
+        .to.be.equal interval
       expect match[4]
-      .to.be.equal times
+        .to.be.equal times
       expect match[5]
-      .to.be.equal concurrency
+        .to.be.equal concurrency

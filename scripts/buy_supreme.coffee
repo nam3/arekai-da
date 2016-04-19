@@ -8,43 +8,35 @@
 #   HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
 #
 # Commands:
-#   arekai-da: buy supreme "TARGET_URL" --time=CRONTIME
+#   arekai-da: buy supreme "IMAGE_ALT_ATTRIBUTE" --from=1986-12-02T00:00:00 --interval=2 --time=10 --concurrency=2
 #
 # Author:
 #   JumpeiArashi
 
-{Account} = require 'arekai-da-plugins'
-Supreme = require('arekai-da-plugins').Supreme.DirectLink
+Controller = require './controllers/buy_supreme'
 utils = require './utils/hubot'
-{Task} = require './services/task'
 
 module.exports = (robot) ->
 
-  robot.respond /buy\s+supreme\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--time=(.+)|)$/, (res) ->
+  robot.respond /buy\s+supreme\s+([\w_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--times=([\d]+)|)(?:\s*--concurrency=([\d]+)|)$/, (res) ->
 
-    url = res.match[1]
-    crontime = if res.match[2] then res.match[2] else utils.convert2Crontime 'now'
-    dryrun = utils.isDryrun()
+    interval = res.match[3] or 1
+    times = res.match[4] or 20
+    concurrency = res.match[5] or 1
 
-    account = new Account
-      db: 'arekai-da'
-      clientId: process.env.HUBOT_GOOGLE_API_OAUTH2_CLIENT_ID
-      clientSecret: process.env.HUBOT_GOOGLE_API_OAUTH2_CLIENT_SECRET
-      redirectUrn: process.env.HUBOT_GOOGLE_API_OAUTH2_REDIRECT_URN
-      refreshToken: process.env.HUBOT_GOOGLE_API_OAUTH2_REFRESH_TOKEN
+    res.send 'Sir, yes, sir! 購入準備ｦｽｽﾒﾏｽ'
 
-    account.getAccount res.message.user.name, 'supreme'
-      .then (user) ->
-        supreme = new Supreme user.firstname, user.lastname, user.email, user.phonenumber, user.zipcode, user.state, user.city, user.address, url
+    controller = new Controller
+      slackName: res.message.user.name
+      imgAlt: res.match[1]
+      dryrunFlag: utils.isDryrun()
+      room: res.message.room
+      from: res.match[2]
+      interval: interval
+      times: times
+      concurrency: concurrency
 
-        name = "Buying Supreme Item #{url}"
-        fn = ->
-          supreme.execute(dryrun)
-
-        task = new Task name, fn, crontime
-        task.attach res
-
-        res.send "Sir, yes, sir! Supremeﾉ商品ｦ購入ｼﾏｽ. #{url}"
-
+    controller.execute()
       .catch (err) ->
-        res.send "```#{err.stack}```"
+        errMessage = if err.hasOwnProperty('stack') then err.stack else err
+        console.error errMessage
