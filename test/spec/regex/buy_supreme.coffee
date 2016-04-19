@@ -2,27 +2,52 @@
 
 Helper = require '../../helper'
 
-describe 'buy_nike_shoe', ->
+describe 'buy_supreme', ->
 
-  url = 'http://www.supremenewyork.com/shop/accessories/keychain-pen/stainless-steel'
-  baseInput = "test-robot: buy supreme #{url}"
+  imgAlt = 'Ub00hq4v3dw'
+  baseInput = "test-robot: buy supreme #{imgAlt}"
+  from = '1986-12-02T00:00:00'
+  interval = '1'
+  times = '20'
+  concurrency = '4'
   regex = Helper.importDispatcherRegex require '../../../scripts/buy_supreme'
 
   context "with input = \"#{baseInput}\"", ->
 
-    it 'gets only url', ->
+    it 'gets only image alt attribute', ->
 
-      match = regex.exec "#{baseInput}"
+      match = regex.exec baseInput
       expect match[1]
-        .to.be.equal url
+        .to.be.equal imgAlt
 
-  context "with input = \"#{baseInput}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --interval=#{interval} --times=#{times}\"", ->
 
-    it 'gets url and time',  ->
+    it 'gets image alt, from, interval and times', ->
 
-      time = '00 00 11 * * *'
-      match = regex.exec "#{baseInput} --time=#{time}"
+      match = regex.exec "#{baseInput} --from=#{from} --interval=#{interval} --times=#{times}"
       expect match[1]
-        .to.be.equal url
+        .to.be.equal imgAlt
       expect match[2]
-        .to.be.equal time
+        .to.be.equal from
+      expect match[3]
+        .to.be.equal interval
+      expect match[4]
+        .to.be.equal times
+      expect match[5]
+        .to.be.equal undefined
+
+  context "with input = \"#{baseInput} --from=#{from} --interval=#{interval} --times=#{times} --concurrency=#{concurrency}\"", ->
+
+    it 'gets image alt, from, interval, times and concurrency', ->
+
+      match = regex.exec "#{baseInput} --from=#{from} --interval=#{interval} --times=#{times} --concurrency=#{concurrency}"
+      expect match[1]
+        .to.be.equal imgAlt
+      expect match[2]
+        .to.be.equal from
+      expect match[3]
+        .to.be.equal interval
+      expect match[4]
+        .to.be.equal times
+      expect match[5]
+        .to.be.equal concurrency

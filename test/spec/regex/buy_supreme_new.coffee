@@ -2,7 +2,7 @@
 
 Helper = require '../../helper'
 
-describe 'buy_nike_shoe', ->
+describe 'buy_supreme_new', ->
 
   imgAlt = 'Ah-0sjsjorc'
   baseInput = "test-robot: buy supreme new #{imgAlt}"
