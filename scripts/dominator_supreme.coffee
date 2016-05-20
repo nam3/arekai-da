@@ -27,7 +27,7 @@ module.exports = (robot) ->
 
     register = new Register(res.match[2], (res.match[3] or 2), (res.match[4] or 8), userId, res.match[1], utils.isDryrun())
     register.register()
-      .then () ->
+      .then ->
         res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
       .catch (err) ->
         res.send "システムとのリンクを構築できません。エラー: #{err}"

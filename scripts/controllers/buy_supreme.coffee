@@ -38,7 +38,7 @@ module.exports = class BuySupreme
         taskName = @slack.title
         factory = =>
           supreme = new Supreme user, @imgAlt, undefined, @dryrunFlag
-          return => supreme.execute()
+          return -> supreme.execute()
 
         params =
           from: @from

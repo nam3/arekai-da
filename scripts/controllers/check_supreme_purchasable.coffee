@@ -29,7 +29,7 @@ module.exports = class CheckSupuremePurchasable
     taskName = @slack.title
     factory = =>
       supreme = new Supreme @proxyServerString, @imgAlt
-      return => supreme.execute()
+      return -> supreme.execute()
 
     params =
       from: @from
