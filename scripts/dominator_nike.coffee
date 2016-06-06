@@ -1,5 +1,5 @@
 # Description
-#   Purchase Supreme Item with dominator
+#   Purchase Nike Shoe with dominator
 #
 # Configuration:
 #   MONGODB_USER

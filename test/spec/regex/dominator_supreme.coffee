@@ -4,7 +4,7 @@ Helper = require '../../helper'
 
 describe 'dominator_supreme', ->
 
-  imgAlt = 'Ub00hq4v3dw'
+  imgAlt = 'xxx'
   baseInput = "test-robot: dominator supreme #{imgAlt}"
   from = '1986-12-02T00:00:00'
   interval = '1'
