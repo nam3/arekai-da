@@ -14,7 +14,7 @@
 # Author:
 #   JumpeiArashi
 
-Register = require('dominator').SupremeBuyerTaskRegister
+Register = require('dominator').GeneralBuyerTaskRegister
 utils = require './utils/hubot'
 
 module.exports = (robot) ->
@@ -25,7 +25,7 @@ module.exports = (robot) ->
 
     res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
 
-    register = new Register(res.match[2], (res.match[3] or 2), (res.match[4] or 8), userId, res.match[1], undefined, utils.isDryrun())
+    register = new Register(res.match[2], (res.match[3] or 2), (res.match[4] or 8), 'buy supreme item', userId, res.match[1], undefined, utils.isDryrun())
     register.register()
       .then ->
         res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
