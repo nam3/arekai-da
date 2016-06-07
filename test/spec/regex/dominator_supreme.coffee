@@ -9,6 +9,7 @@ describe 'dominator_supreme', ->
   from = '1986-12-02T00:00:00'
   interval = '1'
   times = '20'
+  concurrency = '3'
   regex = Helper.importDispatcherRegex require '../../../scripts/dominator_supreme'
 
   context "with input = \"#{baseInput}\"", ->
@@ -34,3 +35,19 @@ describe 'dominator_supreme', ->
         .to.be.equal times
       expect match[5]
         .to.be.equal undefined
+
+  context "with input = \"#{baseInput} --from=#{from} --interval=#{interval} --times=#{times} --concurrency=#{concurrency}\"", ->
+
+    it 'gets image alt, from, interval and times', ->
+
+      match = regex.exec "#{baseInput} --from=#{from} --interval=#{interval} --times=#{times} --concurrency=#{concurrency}"
+      expect match[1]
+        .to.be.equal imgAlt
+      expect match[2]
+        .to.be.equal from
+      expect match[3]
+        .to.be.equal interval
+      expect match[4]
+        .to.be.equal times
+      expect match[5]
+        .to.be.equal concurrency
