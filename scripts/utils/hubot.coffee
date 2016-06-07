@@ -24,8 +24,12 @@ is_dry_run = ->
 
   return if process.env.HUBOT_DRY_RUN and process.env.HUBOT_DRY_RUN.toLowerCase() is 'true' then true else false
 
+generatePromises = (number, fn) ->
+  return Array.prototype.map.call(new Buffer(number), fn)
+
 module.exports =
   isDryrun: is_dry_run
   isValidDatetime: isValidDatetime
   convert2Crontime: convert2Crontime
   nowPlus8Seconds: nowPlus8Seconds
+  generatePromises: generatePromises
