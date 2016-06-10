@@ -25,7 +25,7 @@ module.exports = (robot) ->
 
     res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
 
-    Promise.all(utils.generatePromises(Number(res.match[6]), ->
+    Promise.all(utils.generatePromises(Number(res.match[6] or 1), ->
       register = new Register(res.match[3], (res.match[4] or 2), (res.match[5] or 8), 'buy nike shoe', userId, res.match[1], res.match[2], utils.isDryrun())
       return register.register()
     )).then ->
