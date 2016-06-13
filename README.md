@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/nam3/arekai-da.svg?style=svg)](https://circleci.com/gh/nam3/arekai-da)
+
 arekai-da
 ====
 
