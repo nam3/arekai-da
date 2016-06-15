@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator nike "SHOE_URL" --size=e.g:27, 27.5 --from=1986-12-02T00:00:00 --interval=2 --times=10
+#   arekai-da: dominator nike "SHOE_URL" --size=e.g:27, 27.5 --from=1986-12-02T00:00:00 --interval=2 --times=8 --concurrency=1
 #
 # Author:
 #   JumpeiArashi
