@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator adidas "ITEM_LINK" --from=1986-12-02T00:00:00 --interval=1 --times=1 --concurrency=1
+#   arekai-da: dominator adidas "ITEM_LINK" --size=e.g: 27.0, 27.5 --from=1986-12-02T00:00:00 --interval=1 --times=1 --concurrency=1
 #
 # Author:
 #   JumpeiArashi
