@@ -8,8 +8,8 @@ describe 'dominator_adidas', ->
   baseInput = "test-robot: dominator adidas #{url}"
   size = '27.0'
   from = '1986-12-02T00:00:00'
-  interval = '1'
-  times = '1'
+  attempts = '4096'
+  interval = '3000'
   concurrency = '2'
   regex = Helper.importDispatcherRegex require '../../../scripts/dominator_adidas'
 
@@ -21,11 +21,11 @@ describe 'dominator_adidas', ->
       expect match[1]
         .to.be.equal url
 
-  context "with input = \"#{baseInput} --size=#{size} --from=#{from} --interval=#{interval} --times=#{times}\"", ->
+  context "with input = \"#{baseInput} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval}\"", ->
 
-    it 'gets item url, from, interval and times', ->
+    it 'gets item url, from, interval and attempts', ->
 
-      match = regex.exec "#{baseInput} --size=#{size} --from=#{from} --interval=#{interval} --times=#{times}"
+      match = regex.exec "#{baseInput} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval}"
       expect match[1]
         .to.be.equal url
       expect match[2]
@@ -33,17 +33,17 @@ describe 'dominator_adidas', ->
       expect match[3]
         .to.be.equal from
       expect match[4]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[5]
-        .to.be.equal times
+        .to.be.equal interval
       expect match[6]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --size=#{size} --from=#{from} --interval=#{interval} --times=#{times} --concurrency=#{concurrency}\"", ->
+  context "with input = \"#{baseInput} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
 
-    it 'gets image alt, from, interval and times', ->
+    it 'gets image alt, from, interval and attempts', ->
 
-      match = regex.exec "#{baseInput} --size=#{size} --from=#{from} --interval=#{interval} --times=#{times} --concurrency=#{concurrency}"
+      match = regex.exec "#{baseInput} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}"
       expect match[1]
         .to.be.equal url
       expect match[2]
@@ -51,8 +51,8 @@ describe 'dominator_adidas', ->
       expect match[3]
         .to.be.equal from
       expect match[4]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[5]
-        .to.be.equal times
+        .to.be.equal interval
       expect match[6]
         .to.be.equal concurrency
