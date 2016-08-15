@@ -39,6 +39,24 @@ describe 'dominator_nike_with_sp', ->
       expect match[6]
         .to.be.equal undefined
 
+  context "with input = \"#{baseInput} --from=#{from} --size=M --attempts=#{attempts} --interval=#{interval}\"", ->
+
+    it 'gets item url, from, size, attempts and interval', ->
+
+      match = regex.exec "#{baseInput} --from=#{from} --size=M --attempts=#{attempts} --interval=#{interval}"
+      expect match[1]
+        .to.be.equal url
+      expect match[2]
+        .to.be.equal from
+      expect match[3]
+        .to.be.equal 'M'
+      expect match[4]
+        .to.be.equal attempts
+      expect match[5]
+        .to.be.equal interval
+      expect match[6]
+        .to.be.equal undefined
+
   context "with input = \"#{baseInput} --from=#{from} --size=#{size} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
 
     it 'gets url, from, size, attempts, interval and concurrency', ->
