@@ -7,6 +7,7 @@ describe 'dominator_rakuten_project16', ->
   url = 'http://item.rakuten.co.jp/project1-6/9784197104574/'
   baseInput = "test-robot: dominator rakuten-project16 #{url}"
   from = '1986-12-02T00:00:00'
+  type = 'BLACK'
   paymentMethod = 'seven-eleven'
   attempts = '1'
   interval = '1000'
@@ -31,12 +32,14 @@ describe 'dominator_rakuten_project16', ->
       expect match[2]
         .to.be.equal from
       expect match[3]
-        .to.be.equal paymentMethod
+        .to.be.equal undefined
       expect match[4]
-        .to.be.equal attempts
+        .to.be.equal paymentMethod
       expect match[5]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[6]
+        .to.be.equal interval
+      expect match[7]
         .to.be.equal undefined
 
   context "with input = \"#{baseInput} --from=#{from} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
@@ -49,12 +52,14 @@ describe 'dominator_rakuten_project16', ->
       expect match[2]
         .to.be.equal from
       expect match[3]
-        .to.be.equal paymentMethod
+        .to.be.equal undefined
       expect match[4]
-        .to.be.equal attempts
+        .to.be.equal paymentMethod
       expect match[5]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[6]
+        .to.be.equal interval
+      expect match[7]
         .to.be.equal concurrency
 
   context "when chooses invalid payment method", ->
@@ -64,3 +69,43 @@ describe 'dominator_rakuten_project16', ->
       match = regex.exec "#{baseInput} --from=#{from} --payment-method=dummy --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}"
       expect match
         .to.be.null
+
+  context "with input = \"#{baseInput} --from=#{from} --type=#{type} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval}\"", ->
+
+    it 'gets item url, from, type, payment method, attempts and interval', ->
+
+      match = regex.exec "#{baseInput} --from=#{from} --type=#{type} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval}"
+      expect match[1]
+        .to.be.equal url
+      expect match[2]
+        .to.be.equal from
+      expect match[3]
+        .to.be.equal type
+      expect match[4]
+        .to.be.equal paymentMethod
+      expect match[5]
+        .to.be.equal attempts
+      expect match[6]
+        .to.be.equal interval
+      expect match[7]
+        .to.be.equal undefined
+
+  context "with input = \"#{baseInput} --from=#{from} --type=#{type} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
+
+    it 'gets item url, from, type, payment method, attempts, interval and concurrency', ->
+
+      match = regex.exec "#{baseInput} --from=#{from} --type=#{type} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}"
+      expect match[1]
+        .to.be.equal url
+      expect match[2]
+        .to.be.equal from
+      expect match[3]
+        .to.be.equal type
+      expect match[4]
+        .to.be.equal paymentMethod
+      expect match[5]
+        .to.be.equal attempts
+      expect match[6]
+        .to.be.equal interval
+      expect match[7]
+        .to.be.equal concurrency
