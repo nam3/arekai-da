@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator rakuten-project16 "ITEM_LINK" --from=1986-12-02T00:00:00 --payment-method=transfer|cod|seven-eleven|lawson  --attempts=1 --interval=1000 --concurrency=1
+#   arekai-da: dominator rakuten-project16 "ITEM_LINK" --from=1986-12-02T00:00:00 --type=e.g WHITE,GREEN --payment-method=transfer|cod|seven-eleven|lawson  --attempts=1 --interval=1000 --concurrency=1
 #
 # Author:
 #   JumpeiArashi
