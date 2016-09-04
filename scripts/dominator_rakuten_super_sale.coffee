@@ -15,7 +15,7 @@
 #   JumpeiArashi
 
 Moment = require('moment-timezone')
-register = require('dominator').registerRakutenProject16Job
+register = require('dominator').registerRakutenSuperSaleJob
 utils = require './utils/hubot'
 
 module.exports = (robot) ->
