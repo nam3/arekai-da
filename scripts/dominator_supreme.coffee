@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator supreme "IMAGE_ALT_ATTRIBUTE" --from=1986-12-02T00:00:00 --category=jackets|shirts|tops_sweaters|sweatshirts|pants|t-shirts|hats|bags|accessories|skate --size=S|M|L|XL --payment-method=credit-card|cod
+#   arekai-da: dominator supreme "IMAGE_ALT_ATTRIBUTE" --from=1986-12-02T00:00:00 --category=jackets|shirts|tops_sweaters|sweatshirts|pants|t-shirts|hats|bags|accessories|skate --size=S|M|L|XL --payment-method=credit-card|cod --attempts=3 --interval=2000
 #
 # Author:
 #   JumpeiArashi
@@ -19,14 +19,14 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /dominator\s+supreme\s+([\w_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--category=([\w]+)|)(?:\s*--size=([\w]+)|)(?:\s*--payment-method=([\w-]+)|)$/, (res) ->
+  robot.respond /dominator\s+supreme\s+([\w_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--category=([\w]+)|)(?:\s*--size=([\w]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)$/, (res) ->
 
     userId = res.message.user.name
 
     res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
 
     try
-      return register(res.match[2], userId, res.match[1], res.match[3], res.match[4] or undefined, res.match[5] or 'cod', 3, 2000, utils.isDryrun())
+      return register(res.match[2], userId, res.match[1], res.match[3], res.match[4] or undefined, res.match[5] or 'cod', Number(res.match[6]) or 3, Number(res.match[7]) or 2000, utils.isDryrun())
         .then ->
           res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
         .catch (e) ->
