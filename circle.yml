@@ -5,7 +5,7 @@ dependencies:
   cache_directories:
     - mongodb-linux-x86_64-ubuntu1404-3.0.10
   pre:
-    - npm install typescript typings webpack ts-loader
+    - npm install typescript@1.8.10 typings webpack ts-loader
     - sudo service mongod stop
     - if [[ ! -d mongodb-linux-x86_64-ubuntu1404-3.0.10 ]]; then curl -L http://downloads.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.0.10.tgz | tar xvzf -; fi
     - sudo cp mongodb-linux-x86_64-ubuntu1404-3.0.10/bin/* /usr/bin
