@@ -19,7 +19,7 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /dominator\s+supreme\s+([\w_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--category=([\w]+)|)(?:\s*--size=([\w]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)$/, (res) ->
+  robot.respond /dominator\s+supreme\s+([\w_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--category=([\w-]+)|)(?:\s*--size=([\w]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)$/, (res) ->
 
     userId = res.message.user.name
 
