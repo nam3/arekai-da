@@ -28,7 +28,7 @@
     "arekai-da-plugins": "JumpeiArashi/arekai-da-plugins",
     "coffee-script": "^1.10.0",
     "cron": "^1.1.0",
-    "dominator": "git+ssh://git@github.com/JumpeiArashi/dominator.git#6f4227f83fa0a708ed245d6456606b24370d37c9",
+    "dominator": "git+ssh://git@github.com/JumpeiArashi/dominator.git#9540bac24798943b388e233b7dd595a11392cc09",
     "hubot": "^2.17.0",
     "hubot-diagnostics": "0.0.1",
     "hubot-help": "^0.1.2",
