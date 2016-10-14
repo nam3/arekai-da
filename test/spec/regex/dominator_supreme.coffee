@@ -56,12 +56,12 @@ describe 'dominator_supreme', ->
         .to.be.equal attempts
       expect Number(match[7])
         .to.be.equal interval
-      expect Number(match[8])
+      expect match[8]
         .to.be.equal undefined
 
   context "with input = \"#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --users=#{users}\"", ->
 
-    it 'gets image alt, from, category, size, paymentMethod', ->
+    it 'gets image alt, from, category, size, paymentMethod, attempts, interval and users', ->
 
       match = regex.exec "#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --users=#{users}"
       expect match[1]
@@ -78,5 +78,5 @@ describe 'dominator_supreme', ->
         .to.be.equal attempts
       expect Number(match[7])
         .to.be.equal interval
-      expect Number(match[8])
+      expect match[8]
         .to.be.equal users
