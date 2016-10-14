@@ -12,6 +12,7 @@ describe 'dominator_supreme', ->
   paymentMethod = 'cod'
   attempts = 3
   interval = 2000
+  users = 'user001,user002'
   regex = Helper.importDispatcherRegex require '../../../scripts/dominator_supreme'
 
   context "with input = \"#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod}\"", ->
@@ -33,10 +34,12 @@ describe 'dominator_supreme', ->
         .to.be.equal undefined
       expect match[7]
         .to.be.equal undefined
+      expect match[8]
+        .to.be.equal undefined
 
   context "with input = \"#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval}\"", ->
 
-    it 'gets image alt, from, category, size, paymentMethod', ->
+    it 'gets image alt, from, category, size, paymentMethod, attempts and interval', ->
 
       match = regex.exec "#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval}"
       expect match[1]
@@ -53,3 +56,27 @@ describe 'dominator_supreme', ->
         .to.be.equal attempts
       expect Number(match[7])
         .to.be.equal interval
+      expect match[8]
+        .to.be.equal undefined
+
+  context "with input = \"#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --users=#{users}\"", ->
+
+    it 'gets image alt, from, category, size, paymentMethod, attempts, interval and users', ->
+
+      match = regex.exec "#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --users=#{users}"
+      expect match[1]
+        .to.be.equal imgAlt
+      expect match[2]
+        .to.be.equal from
+      expect match[3]
+        .to.be.equal category
+      expect match[4]
+        .to.be.equal size
+      expect match[5]
+        .to.be.equal paymentMethod
+      expect Number(match[6])
+        .to.be.equal attempts
+      expect Number(match[7])
+        .to.be.equal interval
+      expect match[8]
+        .to.be.equal users
