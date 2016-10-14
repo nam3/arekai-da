@@ -1,4 +1,6 @@
+_ = require 'lodash'
 Moment = require 'moment-timezone'
+checkAccountExistence = require('dominator').checkAccountExistence
 
 isValidDatetime = (datetime) ->
 
@@ -27,9 +29,18 @@ is_dry_run = ->
 generatePromises = (number, fn) ->
   return Array.prototype.map.call(new Buffer(number), fn)
 
+getUsersExistenceOrThrow = (users, type) ->
+  return checkAccountExistence(users, type).then((v) ->
+    if _.includes(v, false)
+      throw new Error('Found no existing user. Did you TYPO?? haha!')
+    else
+      return v
+  )
+
 module.exports =
   isDryrun: is_dry_run
   isValidDatetime: isValidDatetime
   convert2Crontime: convert2Crontime
   nowPlus8Seconds: nowPlus8Seconds
   generatePromises: generatePromises
+  getUsersExistenceOrThrow: getUsersExistenceOrThrow
