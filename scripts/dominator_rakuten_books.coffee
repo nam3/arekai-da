@@ -30,7 +30,6 @@ module.exports = (robot) ->
       userIds = [res.message.user.name]
     startDatetime = Moment(res.match[2]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
 
-
     utils.getUsersExistenceOrThrow(userIds, 'rakuten')
       .then (v) ->
         _.forEach userIds, (userId) ->
