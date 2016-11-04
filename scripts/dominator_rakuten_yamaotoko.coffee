@@ -33,9 +33,9 @@ module.exports = (robot) ->
       .then (v) ->
         userIds.forEach (userId) ->
           res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
-        Promise.all(utils.generatePromises(Number(res.match[6] or 1), ->
-          return register(startDatetime, userId, res.match[1], res.match[2], 'edy', Number(res.match[4]) or 8, Number(res.match[5]) or 250, utils.isDryrun())
-        )).then ->
-          res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
+          Promise.all(utils.generatePromises(Number(res.match[6] or 1), ->
+            return register(startDatetime, userId, res.match[1], res.match[2], 'edy', Number(res.match[4]) or 8, Number(res.match[5]) or 250, utils.isDryrun())
+          )).then ->
+            res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
       .catch (e) ->
         res.send "システムとのリンクを構築できません。エラー: #{e}"
