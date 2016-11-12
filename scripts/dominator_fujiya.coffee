@@ -9,17 +9,17 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator fujiya "PRODUCT_ID" "PRODUCT_CLASS_ID" --from=1986-12-02T00:00:00 --interval=2 --times=10 --concurrency=1
+#   arekai-da: dominator fujiya "ITEM_URL" --from=1986-12-02T00:00:00 --attempts=128 --interval=1000 --concurrency=1 users=user001,user002
 #
 # Author:
 #   JumpeiArashi
 
-Register = require('dominator').GeneralBuyerTaskRegister
+Register = require('dominator').registerFujiyaJob
 utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /dominator\s+fujiya\s+([\d]+)\s+([\d]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--times=([\d]+)|)(?:\s*--concurrency=([\d]+)|)$/, (res) ->
+  robot.respond /dominator\s+fujiya\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--concurrency=([\d]+)|)(?:\s*--users=([\w_,]+)|)$/, (res) ->
 
     userId = res.message.user.name
 
