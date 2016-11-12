@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator fujiya "ITEM_URL" --from=1986-12-02T00:00:00 --attempts=128 --interval=1000 --concurrency=1 users=user001,user002
+#   arekai-da: dominator fujiya "ITEM_URL" --from=1986-12-02T00:00:00 --attempts=128 --interval=1000 --concurrency=1 --users=user001,user002
 #
 # Author:
 #   JumpeiArashi
