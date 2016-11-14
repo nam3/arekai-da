@@ -48,3 +48,24 @@ describe 'hubot', ->
             .to.have.length 10
           expect _.sample(v)
             .to.be.equal 'Hahaha'
+
+  describe '#handleMultipleUser', ->
+    resolve = (v) -> return v
+    reject = (e) -> return e
+    context 'with existing user', ->
+      it 'returns fulfilled Promise', ->
+        userIds = ['test-slack']
+        type = 'test-type'
+        return shouldFulfilled hubot.handleMultipleUser userIds, type, resolve, reject
+          .then (v) ->
+            expect v
+              .to.be.eql userIds
+
+    context 'with no existing user', ->
+      it 'rejects with not found user Error', ->
+        userIds = ['non-existence-user']
+        type = 'test-type'
+        return shouldFulfilled hubot.handleMultipleUser userIds, type, resolve, reject
+          .then (e) ->
+            expect e.message
+              .to.be.eql 'Found no existing user. Did you TYPO?? haha!'

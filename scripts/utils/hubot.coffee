@@ -37,6 +37,13 @@ getUsersExistenceOrThrow = (users, type) ->
       return v
   )
 
+handleMultipleUser = (users, type, resolve, reject) ->
+  return getUsersExistenceOrThrow users, type
+    .then (v) ->
+      return Promise.all(_.map(users, resolve))
+
+    .catch reject
+
 module.exports =
   isDryrun: is_dry_run
   isValidDatetime: isValidDatetime
@@ -44,3 +51,4 @@ module.exports =
   nowPlus8Seconds: nowPlus8Seconds
   generatePromises: generatePromises
   getUsersExistenceOrThrow: getUsersExistenceOrThrow
+  handleMultipleUser: handleMultipleUser
