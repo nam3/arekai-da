@@ -29,17 +29,13 @@ module.exports = (robot) ->
       userIds = [res.message.user.name]
     startDatetime = Moment(res.match[2]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
 
-    utils.getUsersExistenceOrThrow(userIds, 'supreme')
-      .then (v) ->
-        _.forEach userIds, (userId) ->
-          res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
-          try
-            return register(startDatetime, userId, res.match[1], res.match[3], res.match[4] or undefined, res.match[5] or 'cod', Number(res.match[6]) or 3, Number(res.match[7]) or 2000, 4, utils.isDryrun())
-            .then ->
-              res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
-            .catch (e) ->
-              res.send "システムとのリンクを構築できません。エラー: #{e}"
-          catch e
-            res.send "システムとのリンクを構築できません。エラー: #{e}"
-      .catch (e) ->
-        res.send "システムとのリンクを構築できません。エラー: #{e}"
+    resolve = (userId) ->
+      res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
+      return register(startDatetime, userId, res.match[1], res.match[3], res.match[4] or undefined, res.match[5] or 'cod', Number(res.match[6]) or 3, Number(res.match[7]) or 2000, 4, utils.isDryrun())
+        .then ->
+          res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
+
+    reject = (e) ->
+      res.send "システムとのリンクを構築できません。エラー: #{e}"
+
+    utils.handleMultipleUser userIds, 'supreme', resolve, reject
