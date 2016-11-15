@@ -37,6 +37,6 @@ module.exports = (robot) ->
         res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
 
     reject = (e) ->
-        res.send "システムとのリンクを構築できません。エラー: #{e}"
+      res.send "システムとのリンクを構築できません。エラー: #{e}"
 
     utils.handleMultipleUser userIds, 'rakuten', resolve, reject
