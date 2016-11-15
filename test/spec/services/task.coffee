@@ -38,25 +38,6 @@ describe 'describeTasks', ->
       expect tasks[0]
         .to.have.all.keys 'id', 'name', 'datetime'
 
-  context 'one task is end', ->
-
-    name = 'Test Task'
-
-    beforeEach ->
-      fn = ->
-        return new Promise (resolve, reject) ->
-          resolve true
-
-      task = new Task.Task name, fn, new Date()
-
-    it 'gets no tasks', ->
-
-      fn = ->
-        expect Task.describeTasks()
-          .to.be.equal 0
-
-      setTimeout fn, 1000
-
 describe 'Task', ->
 
   context 'when attaches one observer', ->

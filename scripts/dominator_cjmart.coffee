@@ -16,7 +16,7 @@
 
 _ = require('lodash')
 Moment = require('moment-timezone')
-Register = require('dominator').registerCJMartJob
+register = require('dominator').registerCJMartJob
 utils = require './utils/hubot'
 
 module.exports = (robot) ->
@@ -26,17 +26,17 @@ module.exports = (robot) ->
     if res.match[6]
       userIds = res.match[6].split(',')
     else
-      userIds = res.message.user.name
+      userIds = [res.message.user.name]
     startDatetime = Moment(res.match[2]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
 
-    utils.getUsersExistenceOrThrow(userIds, 'cjmart')
-      .then (v) ->
-        _.forEach userIds, (userId) ->
-          res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
-          Promise.all(utils.generatePromises(Number(res.match[5] or 1), ->
-            return register(startDatetime, userId, res.match[1], Number(res.match[3]) or 64, Number(res.match[4]) or 1000, utils.isDryrun())
-          )).then ->
-            res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
+    resolve = (userId) ->
+      res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
+      Promise.all(utils.generatePromises(Number(res.match[5] or 1), ->
+        return register(startDatetime, userId, res.match[1], Number(res.match[3]) or 64, Number(res.match[4]) or 1000, utils.isDryrun())
+      )).then ->
+        res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
 
-      .catch (e) ->
-        res.send "システムとのリンクを構築できません。エラー: #{e}"
+    reject = (e) ->
+      res.send "システムとのリンクを構築できません。エラー: #{e}"
+
+    utils.handleMultipleUser userIds, 'cjmart', resolve, reject

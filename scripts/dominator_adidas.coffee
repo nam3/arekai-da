@@ -32,18 +32,13 @@ module.exports = (robot) ->
     startDatetime = Moment(res.match[10]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
     itemIds = _.compact res.match[1..8]
 
-    utils.getUsersExistenceOrThrow(userIds, 'adidas')
-      .then (v) ->
-        _.forEach userIds, (userId) ->
-          res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
-          try
-            return register(startDatetime, userId, itemIds, res.match[9] or '27.0', Number(res.match[11]) or 128, Number(res.match[12]) or 200, Number(res.match[13]) or 8, utils.isDryrun())
-            .then ->
-              res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
-            .catch (e) ->
-              res.send "システムとのリンクを構築できません。エラー: #{e}"
-          catch e
-            res.send "システムとのリンクを構築できません。エラー: #{e}"
-      .catch (e) ->
-        res.send "システムとのリンクを構築できません。エラー: #{e}"
+    resolve = (userId) ->
+      res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
+      return register(startDatetime, userId, itemIds, res.match[9] or '27.0', Number(res.match[11]) or 128, Number(res.match[12]) or 200, Number(res.match[13]) or 8, utils.isDryrun())
+        .then ->
+          res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
 
+    reject = (e) ->
+      res.send "システムとのリンクを構築できません。エラー: #{e}"
+
+    utils.handleMultipleUser userIds, 'adidas', resolve, reject
