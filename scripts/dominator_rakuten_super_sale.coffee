@@ -20,10 +20,10 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /dominator\s+rakuten-super-sale\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--type=([\w]*)|)(?:\s*--payment-method=(transfer|cod|edy)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--concurrency=([\d]+)|)(?:\s*--users=([\w,]+)|)$/, (res) ->
+  robot.respond /dominator\s+rakuten-super-sale\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--type=([\w]*)|)(?:\s*--payment-method=(transfer|cod|edy)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--concurrency=([\d]+)|)(?:\s*--users=([\w,_]+)|)$/, (res) ->
 
     if res.match[8]
-      userIds = res.match[8]
+      userIds = res.match[8].split(',')
     else
       userIds = [res.message.user.name]
     startDatetime = Moment(res.match[2]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
