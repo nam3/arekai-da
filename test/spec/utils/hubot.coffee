@@ -28,6 +28,16 @@ describe 'hubot', ->
         expect hubot.isDryrun()
           .to.be.equal false
 
+  describe '#assumeStringAsBoolean', ->
+    context 'with "true"', ->
+      it 'returns true as boolean', ->
+        expect hubot.assumeStringAsBoolean('true')
+          .to.be.equal true
+    context 'with "false"', ->
+      it 'returns false as boolean', ->
+        expect hubot.assumeStringAsBoolean('false')
+        .to.be.equal false
+
   describe '#convert2Crontime', ->
     context 'with datetime="now"', ->
       it 'converts to datetime when elapses 16 seconds after current datetime', ->
