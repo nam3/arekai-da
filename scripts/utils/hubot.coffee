@@ -22,9 +22,14 @@ convert2Crontime = (datetime) ->
 
   return datetime
 
-is_dry_run = ->
+isDryRun = ->
 
   return if process.env.HUBOT_DRY_RUN and process.env.HUBOT_DRY_RUN.toLowerCase() is 'true' then true else false
+
+assumeStringAsBoolean = (str) ->
+
+  return if str.toLowerCase() is 'true' then true else false
+
 
 generatePromises = (number, fn) ->
   return Array.prototype.map.call(new Buffer(number), fn)
@@ -45,7 +50,8 @@ handleMultipleUser = (users, type, resolve, reject) ->
     .catch reject
 
 module.exports =
-  isDryrun: is_dry_run
+  isDryrun: isDryRun
+  assumeStringAsBoolean: assumeStringAsBoolean
   isValidDatetime: isValidDatetime
   convert2Crontime: convert2Crontime
   nowPlus8Seconds: nowPlus8Seconds
