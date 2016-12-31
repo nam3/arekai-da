@@ -64,7 +64,7 @@ describe 'hubot', ->
     reject = (e) -> return e
     context 'with existing user', ->
       it 'returns fulfilled Promise', ->
-        userIds = ['test-slack']
+        userIds = ['test-user']
         type = 'test-type'
         return shouldFulfilled hubot.handleMultipleUser userIds, type, resolve, reject
           .then (v) ->
