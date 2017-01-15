@@ -62,11 +62,13 @@ describe 'hubot', ->
   describe '#handleMultipleUser', ->
     resolve = (v) -> return v
     reject = (e) -> return e
+    attempts = 1
+    interval = 500
     context 'with existing user', ->
       it 'returns fulfilled Promise', ->
         userIds = ['test-user']
         type = 'test-type'
-        return shouldFulfilled hubot.handleMultipleUser userIds, type, resolve, reject
+        return shouldFulfilled hubot.handleMultipleUser userIds, type, resolve, reject, attempts, interval
           .then (v) ->
             expect v
               .to.be.eql userIds
@@ -75,7 +77,7 @@ describe 'hubot', ->
       it 'rejects with not found user Error', ->
         userIds = ['non-existence-user']
         type = 'test-type'
-        return shouldFulfilled hubot.handleMultipleUser userIds, type, resolve, reject
+        return shouldFulfilled hubot.handleMultipleUser userIds, type, resolve, reject, attempts, interval
           .then (e) ->
             expect e.message
               .to.be.eql 'Found no existing user. Did you TYPO?? haha!'
