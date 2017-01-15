@@ -38,4 +38,4 @@ module.exports = (robot) ->
     reject = (e) ->
       res.send "システムとのリンクを構築できません。エラー: #{e}"
 
-    utils.handleMultipleUser users, 'rakuten', resolve, reject
+    utils.handleMultipleUser userIds, 'rakuten', resolve, reject

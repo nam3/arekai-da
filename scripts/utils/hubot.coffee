@@ -34,16 +34,16 @@ assumeStringAsBoolean = (str) ->
 generatePromises = (number, fn) ->
   return Array.prototype.map.call(new Buffer(number), fn)
 
-getUsersExistenceOrThrow = (users, type) ->
-  return checkAccountExistence(users, type).then((v) ->
+getUsersExistenceOrThrow = (users, type, attempts, interval) ->
+  return checkAccountExistence(users, type, attempts, interval).then((v) ->
     if _.includes(v, false)
       throw new Error('Found no existing user. Did you TYPO?? haha!')
     else
       return v
   )
 
-handleMultipleUser = (users, type, resolve, reject) ->
-  return getUsersExistenceOrThrow users, type
+handleMultipleUser = (users, type, resolve, reject, attempts, interval) ->
+  return getUsersExistenceOrThrow users, type, attempts, interval
     .then (v) ->
       return Promise.all(_.map(users, resolve))
 
