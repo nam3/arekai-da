@@ -34,7 +34,7 @@ module.exports = (robot) ->
 
     resolve = (userId) ->
       res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
-      return register(startDatetime, userId, itemIds, res.match[9] or '27.0', Number(res.match[11]) or 8, Number(res.match[12]) or 20000, Number(res.match[13]) or 4, utils.isDryrun())
+      return register(startDatetime, userId, itemIds, res.match[9] or '27.0', Number(res.match[11]) or 8, Number(res.match[12]) or 20000, Number(res.match[13]) or 4, utils.isDryrun(), Moment(startDatetime).subtract(_.random(1000 * 60 * 6, 1000 * 60 * 8), 'milliseconds').toDate())
         .then ->
           res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
 
