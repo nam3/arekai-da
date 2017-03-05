@@ -5,7 +5,7 @@ Helper = require '../../helper'
 describe 'dominator_supreme', ->
 
   imgAlt = 'xxx'
-  baseInput = "test-robot: dominator supreme #{imgAlt}"
+  baseInput = "test-robot: dominator supreme \"#{imgAlt}\""
   from = '1986-12-02T00:00:00'
   category = 'accessories'
   size = 'Small'
@@ -39,6 +39,31 @@ describe 'dominator_supreme', ->
         .to.be.equal undefined
       expect match[9]
         .to.be.equal undefined
+
+  context "with input = \"test-robot: dominator supreme \"xxx xxx\" --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod}\"", ->
+
+    it 'gets image alt, from, category, size, paymentMethod', ->
+
+      match = regex.exec "test-robot: dominator supreme \"xxx xxx\" --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod}"
+      expect match[1]
+      .to.be.equal 'xxx xxx'
+      expect match[2]
+      .to.be.equal from
+      expect match[3]
+      .to.be.equal category
+      expect match[4]
+      .to.be.equal size
+      expect match[5]
+      .to.be.equal paymentMethod
+      expect match[6]
+      .to.be.equal undefined
+      expect match[7]
+      .to.be.equal undefined
+      expect match[8]
+      .to.be.equal undefined
+      expect match[9]
+      .to.be.equal undefined
+
 
   context "with input = \"#{baseInput} --from=#{from} --category=t-shirts --size=#{size} --payment-method=#{paymentMethod}\"", ->
 
