@@ -7,7 +7,6 @@ describe 'dominator_rakuten_full_browser', ->
   url = 'http://item.rakuten.co.jp/yamaotoko/845035-003/'
   baseInput = "test-robot: dominator rakuten-full-browser #{url}"
   inventoryId = '12345'
-  type = 'BLACK'
   from = '1986-12-02T00:00:00'
   attempts = '16'
   interval = '1000'
@@ -23,15 +22,15 @@ describe 'dominator_rakuten_full_browser', ->
       expect match[1]
         .to.be.equal url
 
-  context "with input = \"#{baseInput} --type=#{inventoryId} --from=#{from} --attempts=#{attempts} --interval=#{interval}\"", ->
+  context "with input = \"#{baseInput} --inventory-id=#{inventoryId} --from=#{from} --attempts=#{attempts} --interval=#{interval}\"", ->
 
     it 'gets item url, inventoryId, from, attempts and interval', ->
 
-      match = regex.exec "#{baseInput} --type=#{inventoryId} --from=#{from} --attempts=#{attempts} --interval=#{interval}"
+      match = regex.exec "#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval}"
       expect match[1]
         .to.be.equal url
       expect match[2]
-        .to.be.equal inventoryId
+        .to.be.equal undefined
       expect match[3]
         .to.be.equal from
       expect match[4]
@@ -43,31 +42,11 @@ describe 'dominator_rakuten_full_browser', ->
       expect match[7]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --type=#{type} --from=#{from} --attempts=#{attempts} --interval=#{interval}\"", ->
-
-    it 'gets item url, type, from, attempts and interval', ->
-
-      match = regex.exec "#{baseInput} --type=#{type} --from=#{from} --attempts=#{attempts} --interval=#{interval}"
-      expect match[1]
-        .to.be.equal url
-      expect match[2]
-        .to.be.equal type
-      expect match[3]
-        .to.be.equal from
-      expect match[4]
-        .to.be.equal attempts
-      expect match[5]
-        .to.be.equal interval
-      expect match[6]
-        .to.be.equal undefined
-      expect match[7]
-        .to.be.equal undefined
-
-  context "with input = \"#{baseInput} --type=#{inventoryId} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
+  context "with input = \"#{baseInput} --inventory-id=#{inventoryId} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
 
     it 'gets item url, inventoryId, from, attempts, interval and concurrency', ->
 
-      match = regex.exec "#{baseInput} --type=#{inventoryId} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}"
+      match = regex.exec "#{baseInput} --inventory-id=#{inventoryId} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}"
       expect match[1]
         .to.be.equal url
       expect match[2]
@@ -83,15 +62,15 @@ describe 'dominator_rakuten_full_browser', ->
       expect match[7]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --type=#{type} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}\"", ->
+  context "with input = \"#{baseInput} --inventory-id=#{inventoryId} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}\"", ->
 
-    it 'gets item url, type, from, attempts, interval, concurrency and users', ->
+    it 'gets item url, inventoryId, from, attempts, interval, concurrency and users', ->
 
-      match = regex.exec "#{baseInput} --type=#{type} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}"
+      match = regex.exec "#{baseInput} --inventory-id=#{inventoryId} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}"
       expect match[1]
         .to.be.equal url
       expect match[2]
-        .to.be.equal type
+        .to.be.equal inventoryId
       expect match[3]
         .to.be.equal from
       expect match[4]
