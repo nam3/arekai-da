@@ -28,10 +28,11 @@ module.exports = (robot) ->
     else
       userIds = [res.message.user.name]
     startDatetime = Moment(res.match[2]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
+    defaultCheckoutConcurrency = undefined
 
     resolve = (userId) ->
       res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
-      return register(startDatetime, userId, res.match[1], res.match[3], res.match[4] or undefined, res.match[5] or 'cod', Number(res.match[6]) or 3, Number(res.match[7]) or 2000, 4, utils.assumeStringAsBoolean(res.match[8]),  utils.isDryrun())
+      return register(startDatetime, userId, res.match[1], res.match[3], res.match[4] or undefined, res.match[5] or 'cod', Number(res.match[6]) or 3, Number(res.match[7]) or 2000, defaultCheckoutConcurrency, utils.assumeStringAsBoolean(res.match[8]),  utils.isDryrun())
         .then ->
           res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
 
