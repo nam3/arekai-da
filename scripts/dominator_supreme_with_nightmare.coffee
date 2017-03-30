@@ -22,7 +22,7 @@ utils = require './utils/hubot'
 module.exports = (robot) ->
 
 # coffeelint: disable=max_line_length
-  robot.respond /dominator\s+supreme\s+(?:\s*--item1="([\s\w_-]+)"|)(?:\s*--item2="([\s\w_-]+)"|)(?:\s*--item3="([\s\w_-]+)"|)(?:\s*--item4="([\s\w_-]+)"|)(?:\s*--from=([T\d:-]+)|)(?:\s*--size=([\w.]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--users=([\w,]+)|)$/, (res) ->
+  robot.respond /dominator\s+supreme\s+(?:\s*--item1="([\s\w:_-]+)"|)(?:\s*--item2="([\s\w:_-]+)"|)(?:\s*--item3="([\s\w:_-]+)"|)(?:\s*--item4="([\s\w:_-]+)"|)(?:\s*--from=([T\d:-]+)|)(?:\s*--size=([\w.]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--users=([\w,]+)|)$/, (res) ->
 
     if res.match[10]
       userIds = res.match[10].split(',')

@@ -5,9 +5,9 @@ Helper = require '../../helper'
 describe 'dominator_supreme_with_nightmare', ->
 
   baseInput = "test-robot: dominator supreme"
-  item1 = 'xxx'
-  item2 = 'yyy'
-  item3=  'include space'
+  item1 = 'jackets:xxx'
+  item2 = 'shoes:yyy'
+  item3=  'bags:include space'
   from = '1986-12-02T00:00:00'
   size = 'S'
   paymentMethod = 'credit-card'
