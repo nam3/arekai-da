@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator supreme --item1="IMAGE_ALT_ATTRIBUTE" --item2="IMAGE_ALT_ATTRIBUTE" --item3="IMAGE_ALT_ATTRIBUTE" --item4="IMAGE_ALT_ATTRIBUTE" --from=1986-12-02T00:00:00 --size=S|M|L|XL --payment-method=credit-card|cod --attempts=3 --interval=2000 --users=user001,user002
+#   arekai-da: dominator supreme --item1="IMAGE_ALT_ATTRIBUTE" --item2="IMAGE_ALT_ATTRIBUTE" --item3="IMAGE_ALT_ATTRIBUTE" --item4="IMAGE_ALT_ATTRIBUTE" --from=1986-12-02T00:00:00 --size=S|M|L|XL --payment-method=credit-card|cod --attempts=3 --interval=2000 --max-checkout-delay=6000 --users=user001,user002
 #
 # Author:
 #   JumpeiArashi
@@ -22,10 +22,10 @@ utils = require './utils/hubot'
 module.exports = (robot) ->
 
 # coffeelint: disable=max_line_length
-  robot.respond /dominator\s+supreme\s+(?:\s*--item1="([\s\w:_-]+)"|)(?:\s*--item2="([\s\w:_-]+)"|)(?:\s*--item3="([\s\w:_-]+)"|)(?:\s*--item4="([\s\w:_-]+)"|)(?:\s*--from=([T\d:-]+)|)(?:\s*--size=([\w.]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--users=([\w,]+)|)$/, (res) ->
+  robot.respond /dominator\s+supreme\s+(?:\s*--item1="([\s\w:_-]+)"|)(?:\s*--item2="([\s\w:_-]+)"|)(?:\s*--item3="([\s\w:_-]+)"|)(?:\s*--item4="([\s\w:_-]+)"|)(?:\s*--from=([T\d:-]+)|)(?:\s*--size=([\w.]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--max-checkout-delay=([\d]+)|)(?:\s*--users=([\w,]+)|)$/, (res) ->
 
-    if res.match[10]
-      userIds = res.match[10].split(',')
+    if res.match[11]
+      userIds = res.match[11].split(',')
     else
       userIds = [res.message.user.name]
     startDatetime = Moment(res.match[5]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
@@ -33,7 +33,7 @@ module.exports = (robot) ->
 
     resolve = (userId) ->
       res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
-      return register(startDatetime, userId, itemIds, res.match[6], res.match[7] or 'credit-card', Number(res.match[8]) or 3, Number(res.match[9]) or 2000, utils.isDryrun())
+      return register(startDatetime, userId, itemIds, res.match[6], res.match[7] or 'credit-card', Number(res.match[8]) or 3, Number(res.match[9]) or 2000, Number(res.match[10]) or 6000, utils.isDryrun())
         .then ->
           res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
 
