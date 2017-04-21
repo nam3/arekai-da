@@ -12,7 +12,7 @@ describe 'dominator_supreme', ->
   paymentMethod = 'cod'
   attempts = 3
   interval = 2000
-  checkoutDelay = 'true'
+  maxCheckoutDelay = 6000
   users = 'user001,user002'
   regex = Helper.importDispatcherRegex require '../../../scripts/dominator_supreme'
 
@@ -137,11 +137,11 @@ describe 'dominator_supreme', ->
       expect match[9]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --checkout-delay=#{checkoutDelay}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --max-checkout-delay=#{maxCheckoutDelay}\"", ->
 
-    it 'gets image alt, from, category, size, paymentMethod, attempts, interval and checkoutDelay', ->
+    it 'gets image alt, from, category, size, paymentMethod, attempts, interval and maxCheckoutDelay', ->
 
-      match = regex.exec "#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --checkout-delay=#{checkoutDelay}"
+      match = regex.exec "#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --max-checkout-delay=#{maxCheckoutDelay}"
       expect match[1]
         .to.be.equal imgAlt
       expect match[2]
@@ -156,8 +156,8 @@ describe 'dominator_supreme', ->
         .to.be.equal attempts
       expect Number(match[7])
         .to.be.equal interval
-      expect match[8]
-        .to.be.equal checkoutDelay
+      expect Number match[8]
+        .to.be.equal maxCheckoutDelay
       expect match[9]
         .to.be.equal undefined
 
@@ -185,11 +185,11 @@ describe 'dominator_supreme', ->
       expect match[9]
         .to.be.equal users
 
-  context "with input = \"#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --checkout-delay=#{checkoutDelay} --users=#{users}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --max-checkout-delay=#{maxCheckoutDelay} --users=#{users}\"", ->
 
-    it 'gets image alt, from, category, size, paymentMethod, attempts, interval, checkoutDelay and users', ->
+    it 'gets image alt, from, category, size, paymentMethod, attempts, interval, maxCheckoutDelay and users', ->
 
-      match = regex.exec "#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --checkout-delay=#{checkoutDelay} --users=#{users}"
+      match = regex.exec "#{baseInput} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --max-checkout-delay=#{maxCheckoutDelay} --users=#{users}"
       expect match[1]
         .to.be.equal imgAlt
       expect match[2]
@@ -204,7 +204,7 @@ describe 'dominator_supreme', ->
         .to.be.equal attempts
       expect Number(match[7])
         .to.be.equal interval
-      expect match[8]
-        .to.be.equal checkoutDelay
+      expect Number match[8]
+        .to.be.equal maxCheckoutDelay
       expect match[9]
         .to.be.equal users
