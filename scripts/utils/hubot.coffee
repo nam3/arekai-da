@@ -46,8 +46,11 @@ handleMultipleUser = (users, type, resolve, reject, attempts, interval) ->
   return getUsersExistenceOrThrow users, type, attempts, interval
     .then (v) ->
       return Promise.all(_.map(users, resolve))
-
     .catch reject
+
+convert2JstDatetime = (datetime) ->
+  isValidDatetime(datetime)
+  return datetime + '+09:00'
 
 module.exports =
   isDryrun: isDryRun
@@ -58,3 +61,4 @@ module.exports =
   generatePromises: generatePromises
   getUsersExistenceOrThrow: getUsersExistenceOrThrow
   handleMultipleUser: handleMultipleUser
+  convert2JstDatetime: convert2JstDatetime

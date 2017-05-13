@@ -81,3 +81,11 @@ describe 'hubot', ->
           .then (e) ->
             expect e.message
               .to.be.eql 'Found no existing user. Did you TYPO?? haha!'
+
+  describe '#convert2JstDatetime', ->
+    context 'with valid datetime', ->
+      it 'gets datetime with timezone +09:00 style', ->
+        datetime = '1986-12-02T00:00:00'
+        expected = '1986-12-02T00:00:00+09:00'
+        expect hubot.convert2JstDatetime(datetime)
+          .to.be.eql expected
