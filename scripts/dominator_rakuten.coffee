@@ -26,7 +26,7 @@ module.exports = (robot) ->
       userIds = res.match[7].split(',')
     else
       userIds = [res.message.user.name]
-    startDatetime = Moment(res.match[3]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
+    startDatetime = utils.convert2JstDatetime(res.match[3])
 
     resolve = (userId) ->
       res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
