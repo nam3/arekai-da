@@ -20,13 +20,13 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /dominator\s+epark\s+(umeda|shinsaibashi|ginza|harajuku)(?:\s*--from=([T\d:-]+)|)(?:\s*--reservation-datetime=([T\d:-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--users=([\w,]+)|)$/, (res) ->
+  robot.respond /dominator\s+epark\s+(umeda|shinsaibashi|ginza|harajuku|nagoya)(?:\s*--from=([T\d:-]+)|)(?:\s*--reservation-datetime=([T\d:-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--users=([\w,]+)|)$/, (res) ->
 
     if res.match[6]
       userIds = res.match[6].split(',')
     else
       userIds = [res.message.user.name]
-    startDatetime = Moment(res.match[2]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
+    startDatetime = utils.convert2JstDatetime(res.match[2])
 
     resolve = (userId) ->
       res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
