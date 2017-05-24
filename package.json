@@ -26,31 +26,47 @@
   "homepage": "https://github.com/nam3/arekai-da#readme",
   "dependencies": {
     "arekai-da-plugins": "JumpeiArashi/arekai-da-plugins",
-    "coffee-script": "^1.10.0",
     "cron": "^1.1.0",
     "dominator": "git+ssh://git@github.com/JumpeiArashi/dominator.git#efe29d0251f6a37a7a0d8865c53803a8f60128f2",
-    "hubot": "^2.17.0",
+    "hubot": "^2.19.0",
     "hubot-diagnostics": "0.0.1",
-    "hubot-help": "^0.1.2",
-    "hubot-slack": "^3.4.2",
-    "lodash": "^4.13.1",
-    "moment-timezone": "^0.5.1",
-    "node-uuid": "^1.4.7",
-    "request": "^2.69.0"
+    "hubot-help": "^0.2.0",
+    "hubot-slack": "^4.3.4",
+    "lodash": "^4.17.4",
+    "moment-timezone": "^0.5.13",
+    "node-uuid": "^1.4.8",
+    "request": "^2.81.0"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
-    "coffeelint": "^1.14.2",
+    "@types/agenda": "^0.8.33",
+    "@types/cheerio": "^0.22.1",
+    "@types/lodash": "^4.14.64",
+    "@types/mongoose": "^4.7.13",
+    "@types/node-forge": "^0.6.8",
+    "@types/winston": "^2.3.2",
+    "chai": "^3.5.0",
+    "coffee-script": "^1.12.6",
+    "coffeelint": "^1.16.0",
     "hubot-mock-adapter": "^1.0.0",
-    "mocha": "^2.3.4",
+    "mocha": "^3.4.2",
     "promise-test-helper": "^0.2.1",
-    "sinon": "^1.17.3",
-    "supertest": "^1.1.0"
+    "sinon": "^2.3.1",
+    "supertest": "^3.0.0",
+    "ts-loader": "^0.8.2",
+    "typescript": "^2.3.x",
+    "typings": "^2.1.1",
+    "webpack": "^1.13.0"
   },
   "peerDependencies": {
     "ts-loader": "^0.8.2",
-    "typescript": "1.8.x",
-    "typings": "^1.0.4",
-    "webpack": "^1.13.0"
+    "typescript": "^2.3.x",
+    "typings": "^2.1.1",
+    "webpack": "^1.13.0",
+    "@types/agenda": "^0.8.33",
+    "@types/cheerio": "^0.22.1",
+    "@types/lodash": "^4.14.64",
+    "@types/mongoose": "^4.7.13",
+    "@types/node-forge": "^0.6.8",
+    "@types/winston": "^2.3.2"
   }
 }
