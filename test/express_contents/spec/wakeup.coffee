@@ -13,7 +13,7 @@ describe 'GET /wakeup', ->
 
   context 'with correct token', ->
 
-    it 'includes "Good Morning" in response message', (done) ->
+    it 'includes "Good Morning" in response message', () ->
 
       request(app).get('/wakeup?token=TOKEN').end (err, res) ->
 
@@ -21,11 +21,10 @@ describe 'GET /wakeup', ->
           .to.be.equal null
         expect res.body.attachments[0].text
           .to.match /Good\ Morning/
-        done()
 
   context 'with invalid token', ->
 
-    it 'includes "Your provided token is invalid" in response message', (done) ->
+    it 'includes "Your provided token is invalid" in response message', () ->
 
       request(app).get('/wakeup?token=INVALID').end (err, res) ->
 
@@ -33,11 +32,10 @@ describe 'GET /wakeup', ->
           .to.be.equal null
         expect res.body.attachments[0].text
           .to.match /Your\ provided\ token\ is\ invalid/
-        done()
 
   context 'without token', ->
 
-    it 'includes "Your provided token is invalid" in response message', (done) ->
+    it 'includes "Your provided token is invalid" in response message', () ->
 
       request(app).get('/wakeup').end (err, res) ->
 
@@ -45,4 +43,3 @@ describe 'GET /wakeup', ->
           .to.be.equal null
         expect res.body.attachments[0].text
           .to.match /Your\ provided\ token\ is\ invalid/
-        done()
