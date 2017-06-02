@@ -24,7 +24,7 @@ module.exports = (robot) ->
 
     startDatetime = Moment(res.match[2]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
 
-    return register(startDatetime, res.match[1], Number(res.match[3]) || 20, Number(res.match[4]) || 120, Number(res.match[5]) || 1000)
+    return register(startDatetime, res.match[1], Number(res.match[3]) or 20, Number(res.match[4]) or 120, Number(res.match[5]) or 1000)
       .then () ->
         res.send "#{startDatetime}に対象のジョブをスタートします。"
       .catch (e) ->
