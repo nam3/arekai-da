@@ -15,7 +15,6 @@
 #   JumpeiArashi
 
 _ = require('lodash')
-Moment = require('moment-timezone')
 register = require('dominator').registerSupremeItemWithNightmareJob
 utils = require './utils/hubot'
 

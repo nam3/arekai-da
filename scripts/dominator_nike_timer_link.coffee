@@ -14,7 +14,6 @@
 # Author:
 #   JumpeiArashi
 
-Moment = require('moment-timezone')
 register = require('dominator').registerNikeWithTimerLinkJob
 utils = require './utils/hubot'
 
@@ -26,7 +25,7 @@ module.exports = (robot) ->
       userIds = res.match[7].split(',')
     else
       userIds = [res.message.user.name]
-    startDatetime = Moment(res.match[2]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
+    startDatetime = utils.convert2JstDatetime(res.match[2])
 
     resolve = (userId) ->
       res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
