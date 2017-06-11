@@ -29,7 +29,7 @@ module.exports = (robot) ->
     else
       userIds = [res.message.user.name]
 
-    startDatetime = Moment(res.match[10]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
+    startDatetime = utils.convert2JstDatetime(res.match[10])
     itemIds = _.compact res.match[1..8]
 
     resolve = (userId) ->

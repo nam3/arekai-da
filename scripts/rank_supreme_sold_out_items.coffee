@@ -22,7 +22,7 @@ module.exports = (robot) ->
 
   robot.respond /supreme-sold-out-ranking\s+"([\s\w_-]+)"(?:\s*--from=([T\d:-]+)|)(?:\s*--max-item=([\d]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)$/, (res) ->
 
-    startDatetime = Moment(res.match[2]).tz('Asia/Tokyo').format('YYYY-MM-DDTHH:mm:ss').toString()
+    startDatetime = utils.convert2JstDatetime(res.match[2])
 
     return register(startDatetime, res.match[1], Number(res.match[3]) or 20, Number(res.match[4]) or 120, Number(res.match[5]) or 1000)
       .then () ->
