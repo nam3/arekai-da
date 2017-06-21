@@ -13,7 +13,7 @@ describe 'dominator_adidas', ->
   from = '1986-12-02T00:00:00'
   attempts = '4096'
   interval = '3000'
-  checkoutConcurrency = '4'
+  fetcherMode = 'manual'
   users = 'user001,user002'
   regex = Helper.importDispatcherRegex require '../../../scripts/dominator_adidas'
 
@@ -93,11 +93,11 @@ describe 'dominator_adidas', ->
       expect match[14]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --item2=#{item2} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --checkout-concurrency=#{checkoutConcurrency}\"", ->
+  context "with input = \"#{baseInput} --item2=#{item2} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --fetcher-mode=#{fetcherMode}\"", ->
 
     it 'gets item1 url, item2 url, from, interval, attempts and checkout concurrency', ->
 
-      match = regex.exec "#{baseInput} --item2=#{item2} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --checkout-concurrency=#{checkoutConcurrency}"
+      match = regex.exec "#{baseInput} --item2=#{item2} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --fetcher-mode=#{fetcherMode}"
       expect match[1]
         .to.be.equal item1
       expect match[2]
@@ -123,15 +123,15 @@ describe 'dominator_adidas', ->
       expect match[12]
         .to.be.equal interval
       expect match[13]
-        .to.be.equal checkoutConcurrency
+        .to.be.equal fetcherMode
       expect match[14]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --item2=#{item2} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --checkout-concurrency=#{checkoutConcurrency} --users=#{users}\"", ->
+  context "with input = \"#{baseInput} --item2=#{item2} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --fetcher-mode=#{fetcherMode} --users=#{users}\"", ->
 
     it 'gets item1 url, item2 url, from, interval, attempts, checkout concurrency and users', ->
 
-      match = regex.exec "#{baseInput} --item2=#{item2} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --checkout-concurrency=#{checkoutConcurrency} --users=#{users}"
+      match = regex.exec "#{baseInput} --item2=#{item2} --size=#{size} --from=#{from} --attempts=#{attempts} --interval=#{interval} --fetcher-mode=#{fetcherMode} --users=#{users}"
       expect match[1]
         .to.be.equal item1
       expect match[2]
@@ -157,6 +157,6 @@ describe 'dominator_adidas', ->
       expect match[12]
         .to.be.equal interval
       expect match[13]
-        .to.be.equal checkoutConcurrency
+        .to.be.equal fetcherMode
       expect match[14]
         .to.be.equal users
