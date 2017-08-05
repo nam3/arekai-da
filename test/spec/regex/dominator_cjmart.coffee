@@ -7,6 +7,7 @@ describe 'dominator_cjmart', ->
   url = 'http://cjmart.jp/products/detail.php?product_id=2627'
   baseInput = "test-robot: dominator cjmart #{url}"
   from = '1986-12-02T00:00:00'
+  type = 'BLACK'
   attempts = '64'
   interval = '1000'
   concurrency = '1'
@@ -28,6 +29,8 @@ describe 'dominator_cjmart', ->
         .to.be.equal undefined
       expect match[6]
         .to.be.equal undefined
+      expect match[6]
+        .to.be.equal undefined
 
   context "with input = \"#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval}\"", ->
 
@@ -39,12 +42,14 @@ describe 'dominator_cjmart', ->
       expect match[2]
         .to.be.equal from
       expect match[3]
-        .to.be.equal attempts
-      expect match[4]
-        .to.be.equal interval
-      expect match[5]
         .to.be.equal undefined
+      expect match[4]
+        .to.be.equal attempts
+      expect match[5]
+        .to.be.equal interval
       expect match[6]
+        .to.be.equal undefined
+      expect match[7]
         .to.be.equal undefined
 
   context "with input = \"#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
@@ -57,30 +62,34 @@ describe 'dominator_cjmart', ->
       expect match[2]
         .to.be.equal from
       expect match[3]
-        .to.be.equal attempts
+        .to.be.equal undefined
       expect match[4]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[5]
-        .to.be.equal concurrency
+        .to.be.equal interval
       expect match[6]
+        .to.be.equal concurrency
+      expect match[7]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval} --users=#{users}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --type=#{type} --attempts=#{attempts} --interval=#{interval} --users=#{users}\"", ->
 
     it 'gets item url, from, attempts, interval and users', ->
 
-      match = regex.exec "#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval} --users=#{users}"
+      match = regex.exec "#{baseInput} --from=#{from} --type=#{type} --attempts=#{attempts} --interval=#{interval} --users=#{users}"
       expect match[1]
         .to.be.equal url
       expect match[2]
         .to.be.equal from
       expect match[3]
-        .to.be.equal attempts
+        .to.be.equal type
       expect match[4]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[5]
-        .to.be.equal undefined
+        .to.be.equal interval
       expect match[6]
+        .to.be.equal undefined
+      expect match[7]
         .to.be.equal users
 
   context "with input = \"#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}\"", ->
@@ -93,10 +102,12 @@ describe 'dominator_cjmart', ->
       expect match[2]
         .to.be.equal from
       expect match[3]
-        .to.be.equal attempts
+        .to.be.equal undefined
       expect match[4]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[5]
-        .to.be.equal concurrency
+        .to.be.equal interval
       expect match[6]
+        .to.be.equal concurrency
+      expect match[7]
         .to.be.equal users
