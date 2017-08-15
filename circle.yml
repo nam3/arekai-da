@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 6.10.3
+    version: 6.11.2
 dependencies:
   cache_directories:
     - mongodb-linux-x86_64-ubuntu1404-3.0.10
