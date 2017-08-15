@@ -52,10 +52,10 @@
     "promise-test-helper": "^0.2.1",
     "sinon": "^2.3.1",
     "supertest": "^3.0.0",
-    "ts-loader": "^0.8.2",
-    "typescript": "^2.3.x",
+    "ts-loader": "^2.3.2",
+    "typescript": "2.3.x",
     "typings": "^2.1.1",
-    "webpack": "^1.13.0"
+    "webpack": "^3.5.4"
   },
   "peerDependencies": {
     "ts-loader": "^2.3.2",
