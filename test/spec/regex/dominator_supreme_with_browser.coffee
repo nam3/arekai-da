@@ -15,7 +15,7 @@ describe 'dominator_supreme_with_nightmare', ->
   maxCheckoutDelay = 6000
   recaptchaFetcherType = 'manual'
   users = 'user001,user002'
-  regex = Helper.importDispatcherRegex require '../../../scripts/dominator_supreme_with_nightmare'
+  regex = Helper.importDispatcherRegex require '../../../scripts/dominator_supreme_with_browser'
 
   context "with input = \"#{baseInput} #{itemId} --from=#{from} --category=#{category} --size=#{size} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval}\"", ->
 
