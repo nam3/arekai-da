@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator supreme --from=1986-12-02T00:00:00 --category=new|jackets|shirts|tops_sweaters|sweatshirts|pants|t-shirts|hats|bags|accessories|shoes|skate --size=S|M|L|XL --payment-method=credit-card|cod --fetcher-mode=manual|auto --attempts=3 --interval=2000 --users=user001,user002
+#   arekai-da: dominator supreme-launch --from=1986-12-02T00:00:00 --category=all|new|jackets|shirts|tops_sweaters|sweatshirts|pants|t-shirts|hats|bags|accessories|shoes|skate --size=Small|Medium|Large|XLarge --payment-method=credit-card|cod --attempts=3 --interval=2000 --fetcher-mode=manual|auto --users=user001,user002
 #
 # Author:
 #   JumpeiArashi
@@ -19,7 +19,7 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /dominator\s+supreme\s+(?:\s*--from=([T\d:-]+)|)(?:\s*--category=([\w-]+)|)(?:\s*--size=([\w.]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--fetcher-mode=([\w]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--users=([\w,]+)|)$/, (res) ->
+  robot.respond /dominator\s+supreme-launch\s+(?:\s*--from=([T\d:-]+)|)(?:\s*--category=([\w-]+)|)(?:\s*--size=([\w.]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--fetcher-mode=([\w]+)|)(?:\s*--users=([\w,]+)|)$/, (res) ->
 
     if res.match[8]
       userIds = res.match[8].split(',')
@@ -29,7 +29,7 @@ module.exports = (robot) ->
 
     resolve = (userId) ->
       res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
-      return register(startDatetime, userId, res.match[2], res.match[3] or undefined , res.match[4] or 'code', res.match[5] or 'manual', Number(res.match[6]) or 3, Number(res.match[7]) or 2000, utils.isDryrun())
+      return register(startDatetime, userId, res.match[2], res.match[3] or undefined , res.match[4] or 'cod', Number(res.match[5]) or 3, Number(res.match[6]) or 2000, res.match[7] or 'manual', utils.isDryrun())
         .then ->
           res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
 
