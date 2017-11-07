@@ -54,13 +54,11 @@
     "supertest": "^3.0.0",
     "ts-loader": "^2.3.2",
     "typescript": "2.3.x",
-    "typings": "^2.1.1",
     "webpack": "^3.5.4"
   },
   "peerDependencies": {
     "ts-loader": "^2.3.2",
     "typescript": "2.3.x",
-    "typings": "^2.1.1",
     "webpack": "^3.5.4",
     "@types/agenda": "^0.8.33",
     "@types/cheerio": "^0.22.1",
