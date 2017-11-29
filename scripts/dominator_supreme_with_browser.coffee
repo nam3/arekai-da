@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator supreme-browser IMAGE_NUMBER --from=1986-12-02T00:00:00 --category=jackets|shirts|tops_sweaters|sweatshirts|pants|t-shirts|hats|bags|accessories|shoes|skate --size=Small|Medium|Large|XLarge --payment-method=credit-card|cod --attempts=3 --interval=2000 --max-checkout-delay=6000 --fetcher-type=manual|auto --users=user001,user002
+#   arekai-da: dominator supreme-browser IMAGE_NUMBER --from=1986-12-02T00:00:00 --category=jackets|shirts|tops_sweaters|sweatshirts|pants|t-shirts|hats|bags|accessories|shoes|skate --size=Small|Medium|Large|XLarge --payment-method=credit-card|cod --attempts=3 --interval=2000 --max-checkout-delay=6000 --fetcher-mode=manual|auto --users=user001,user002
 #
 # Author:
 #   JumpeiArashi
