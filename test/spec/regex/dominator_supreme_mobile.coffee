@@ -1,24 +1,20 @@
 {expect} = require 'chai'
-
 Helper = require '../../helper'
 
-describe 'dominator_ftc', ->
+describe 'dominator_supreme_mobile', ->
 
-  keyword = 'kyne DECK'
-  baseInput = "test-robot: dominator ftc \"#{keyword}\""
+  keyword = 'Warm-Up Jacket'
+  baseInput = "test-robot: dominator supreme-mobile \"#{keyword}\""
   from = '1986-12-02T00:00:00'
-  color = 'BLACK'
-  size = 'L'
+  color = 'Black'
+  size = 'Large'
   attempts = 3
   interval = 2000
-  checkoutConcurrency = 16
   users = 'user001,user002'
-  regex = Helper.importDispatcherRegex require '../../../scripts/dominator_ftc'
+  regex = Helper.importDispatcherRegex require '../../../scripts/dominator_supreme_mobile'
 
   context "with input = \"#{baseInput} --from=#{from} --size=#{size}\"", ->
-
     it 'gets item url, from, size', ->
-
       match = regex.exec "#{baseInput} --from=#{from} --size=#{size}"
       expect match[1]
         .to.be.equal keyword
@@ -34,13 +30,45 @@ describe 'dominator_ftc', ->
         .to.be.equal undefined
       expect match[7]
         .to.be.equal undefined
-      expect match[8]
+
+  context "with input = \"test-robot: dominator supreme-mobile \"Supreme/Nike/NBA Teams Warm-Up Jacket\" --from=#{from} --size=#{size}\"", ->
+    it 'gets item url, from, size', ->
+      match = regex.exec "test-robot: dominator supreme-mobile \"Supreme/Nike/NBA Teams Warm-Up Jacket\" --from=#{from} --size=#{size}"
+      expect match[1]
+        .to.be.equal 'Supreme/Nike/NBA Teams Warm-Up Jacket'
+      expect match[2]
+        .to.be.equal from
+      expect match[3]
+        .to.be.equal undefined
+      expect match[4]
+        .to.be.equal size
+      expect match[5]
+        .to.be.equal undefined
+      expect match[6]
+        .to.be.equal undefined
+      expect match[7]
+        .to.be.equal undefined
+
+  context "with input = \"#{baseInput} --from=#{from} --color=#{color} --attempts=#{attempts} --interval=#{interval}\"", ->
+    it 'gets search keyword, from, size, attempts and interval', ->
+      match = regex.exec "#{baseInput} --from=#{from} --color=#{color} --attempts=#{attempts} --interval=#{interval}"
+      expect match[1]
+        .to.be.equal keyword
+      expect match[2]
+        .to.be.equal from
+      expect match[3]
+        .to.be.equal color
+      expect match[4]
+        .to.be.equal undefined
+      expect Number(match[5])
+        .to.be.equal attempts
+      expect Number(match[6])
+        .to.be.equal interval
+      expect match[7]
         .to.be.equal undefined
 
   context "with input = \"#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval}\"", ->
-
-    it 'gets item url, from, color, size, attempts and interval', ->
-
+    it 'gets search keyword, from, color, size, attempts and interval', ->
       match = regex.exec "#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval}"
       expect match[1]
         .to.be.equal keyword
@@ -56,14 +84,10 @@ describe 'dominator_ftc', ->
         .to.be.equal interval
       expect match[7]
         .to.be.equal undefined
-      expect match[8]
-        .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --checkout-concurrency=#{checkoutConcurrency} --users=#{users}\"", ->
-
-    it 'gets item url, from, color, size, attempts, interval and users', ->
-
-      match = regex.exec "#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --checkout-concurrency=#{checkoutConcurrency} --users=#{users}"
+  context "with input = \"#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --users=#{users}\"", ->
+    it 'gets search keyword, from, color, size, attempts, interval and users', ->
+      match = regex.exec "#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --users=#{users}"
       expect match[1]
         .to.be.equal keyword
       expect match[2]
@@ -76,7 +100,5 @@ describe 'dominator_ftc', ->
         .to.be.equal attempts
       expect Number(match[6])
         .to.be.equal interval
-      expect Number(match[7])
-        .to.be.equal checkoutConcurrency
-      expect match[8]
+      expect match[7]
         .to.be.equal users
