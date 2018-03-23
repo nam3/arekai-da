@@ -7,11 +7,11 @@ describe 'dominator_atmos', ->
   url = 'http://www.atmos-tokyo.com/category/SHOES/725066_006.html'
   baseInput = "test-robot: dominator atmos #{url}"
   from = '1986-12-02T00:00:00'
-  type = '270CM'
+  concurrency = 1
   paymentMethod = 'credit-card'
   attempts = '16'
   interval = '1000'
-  concurrency = '2'
+  jobConcurrency = '2'
   users = 'user001,user002'
   regex = Helper.importDispatcherRegex require '../../../scripts/dominator_atmos'
 
@@ -23,61 +23,61 @@ describe 'dominator_atmos', ->
       expect match[1]
         .to.be.equal url
 
-  context "with input = \"#{baseInput} --from=#{from} --type=#{type} --attempts=#{attempts} --interval=#{interval}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --concurrency=#{concurrency} --attempts=#{attempts} --interval=#{interval}\"", ->
 
-    it 'gets item url, from, type, attempts and interval', ->
+    it 'gets item url, from, concurrency, attempts and interval', ->
 
-      match = regex.exec "#{baseInput} --from=#{from} --type=#{type} --attempts=#{attempts} --interval=#{interval}"
+      match = regex.exec "#{baseInput} --from=#{from} --concurrency=#{concurrency} --attempts=#{attempts} --interval=#{interval}"
       expect match[1]
         .to.be.equal url
       expect match[2]
         .to.be.equal from
-      expect match[3]
-        .to.be.equal type
-      expect match[4]
-        .to.be.equal undefined
-      expect match[5]
-        .to.be.equal attempts
-      expect match[6]
-        .to.be.equal interval
-      expect match[7]
-        .to.be.equal undefined
-      expect match[8]
-        .to.be.equal undefined
-
-  context "with input = \"#{baseInput} --from=#{from} --type=#{type} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
-
-    it 'gets item url, from, type, attempts, interval and concurrency', ->
-
-      match = regex.exec "#{baseInput} --from=#{from} --type=#{type} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}"
-      expect match[1]
-        .to.be.equal url
-      expect match[2]
-        .to.be.equal from
-      expect match[3]
-        .to.be.equal type
-      expect match[4]
-        .to.be.equal undefined
-      expect match[5]
-        .to.be.equal attempts
-      expect match[6]
-        .to.be.equal interval
-      expect match[7]
+      expect Number(match[3])
         .to.be.equal concurrency
+      expect match[4]
+        .to.be.equal undefined
+      expect match[5]
+        .to.be.equal attempts
+      expect match[6]
+        .to.be.equal interval
+      expect match[7]
+        .to.be.equal undefined
       expect match[8]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --from=#{from} --type=#{type} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --concurrency=#{concurrency} --attempts=#{attempts} --interval=#{interval} --jobConcurrency=#{jobConcurrency}\"", ->
 
-    it 'gets item url, from, type, payment method, attempts, interval and concurrency', ->
+    it 'gets item url, from, concurrency, attempts, interval and jobConcurrency', ->
 
-      match = regex.exec "#{baseInput} --from=#{from} --type=#{type} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}"
+      match = regex.exec "#{baseInput} --from=#{from} --concurrency=#{concurrency} --attempts=#{attempts} --interval=#{interval} --jobConcurrency=#{jobConcurrency}"
+      expect match[1]
+        .to.be.equal url
+      expect match[2]
+        .to.be.equal from
+      expect Number(match[3])
+        .to.be.equal concurrency
+      expect match[4]
+        .to.be.equal undefined
+      expect match[5]
+        .to.be.equal attempts
+      expect match[6]
+        .to.be.equal interval
+      expect match[7]
+        .to.be.equal jobConcurrency
+      expect match[8]
+        .to.be.equal undefined
+
+  context "with input = \"#{baseInput} --from=#{from} --concurrency=#{concurrency} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --jobConcurrency=#{jobConcurrency}\"", ->
+
+    it 'gets item url, from, concurrency, payment method, attempts, interval and jobConcurrency', ->
+
+      match = regex.exec "#{baseInput} --from=#{from} --concurrency=#{concurrency} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --jobConcurrency=#{jobConcurrency}"
       expect match[1]
       .to.be.equal url
       expect match[2]
       .to.be.equal from
-      expect match[3]
-      .to.be.equal type
+      expect Number(match[3])
+      .to.be.equal concurrency
       expect match[4]
       .to.be.equal paymentMethod
       expect match[5]
@@ -85,21 +85,21 @@ describe 'dominator_atmos', ->
       expect match[6]
       .to.be.equal interval
       expect match[7]
-      .to.be.equal concurrency
+      .to.be.equal jobConcurrency
       expect match[8]
       .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --from=#{from} --type=#{type} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --concurrency=#{concurrency} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --jobConcurrency=#{jobConcurrency} --users=#{users}\"", ->
 
-    it 'gets item url, from, type, payment method, attempts, interval, concurrency and users', ->
+    it 'gets item url, from, concurrency, payment method, attempts, interval, jobConcurrency and users', ->
 
-      match = regex.exec "#{baseInput} --from=#{from} --type=#{type} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}"
+      match = regex.exec "#{baseInput} --from=#{from} --concurrency=#{concurrency} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --jobConcurrency=#{jobConcurrency} --users=#{users}"
       expect match[1]
         .to.be.equal url
       expect match[2]
         .to.be.equal from
-      expect match[3]
-        .to.be.equal type
+      expect Number(match[3])
+        .to.be.equal concurrency
       expect match[4]
         .to.be.equal paymentMethod
       expect match[5]
@@ -107,6 +107,6 @@ describe 'dominator_atmos', ->
       expect match[6]
         .to.be.equal interval
       expect match[7]
-        .to.be.equal concurrency
+        .to.be.equal jobConcurrency
       expect match[8]
         .to.be.equal users
