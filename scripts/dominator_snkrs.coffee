@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator snkrs "ITEM_LINK" --from=1986-12-02T00:00:00 --attempts=248 --interval=2048 --concurrency=1 --users=user001,user002
+#   arekai-da: dominator snkrs PRODUCT_ID(e.g: AJ7291-002) --from=1986-12-02T00:00:00 --size=10(US size only) --attempts=248 --interval=2048 --concurrency=1 --users=user001,user002
 #
 # Author:
 #   JumpeiArashi
@@ -19,18 +19,18 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /dominator\s+snkrs\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--concurrency=([\d]+)|)(?:\s*--users=([\w_,]+)|)$/, (res) ->
+  robot.respond /dominator\s+snkrs\s+([\w-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--size=([\d.]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--concurrency=([\d]+)|)(?:\s*--users=([\w_,]+)|)$/, (res) ->
 
-    if res.match[6]
-      userIds = res.match[6].split(',')
+    if res.match[7]
+      userIds = res.match[7].split(',')
     else
       userIds = [res.message.user.name]
     startDatetime = utils.convert2JstDatetime(res.match[2])
 
     resolve = (userId) ->
       res.send "携帯型心理診断鎮圧執行システムドミネーター、起動しました。ユーザー認証、#{userId}。"
-      Promise.all(utils.generatePromises(Number(res.match[5] or 1), ->
-        return register(startDatetime, userId, res.match[1], Number(res.match[3]) or 128, Number(res.match[4]) or 10 * 1000, utils.isDryrun())
+      Promise.all(utils.generatePromises(Number(res.match[6] or 1), ->
+        return register(startDatetime, userId, res.match[1], res.match[3] or '10', Number(res.match[4]) or 128, Number(res.match[5]) or 10 * 1000, utils.isDryrun())
       )).then ->
         res.send "適正ユーザーです。慎重に照準を定め対象を排除してください。"
 

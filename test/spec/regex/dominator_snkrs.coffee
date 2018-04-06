@@ -3,9 +3,9 @@
 Helper = require '../../helper'
 
 describe 'dominator_snkrs', ->
-
-  url = 'https://www.nike.com/jp/launch/t/air-jordan-5-retro-premium-black?id=881432-010&size=JP%2029&action=buy'
-  baseInput = "test-robot: dominator snkrs #{url}"
+  productId = 'AJ7291-002'
+  size = '10'
+  baseInput = "test-robot: dominator snkrs #{productId}"
   from = '1986-12-02T00:00:00'
   attempts = '16'
   interval = '1000'
@@ -15,62 +15,68 @@ describe 'dominator_snkrs', ->
 
   context "with input = \"#{baseInput}\"", ->
 
-    it 'gets only url', ->
+    it 'gets only productId', ->
 
       match = regex.exec baseInput
       expect match[1]
-        .to.be.equal url
+        .to.be.equal productId
 
-  context "with input = \"#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --size=#{size} --attempts=#{attempts} --interval=#{interval}\"", ->
 
-    it 'gets item url, from, attempts and interval', ->
+    it 'gets item productId, from, size, attempts and interval', ->
 
-      match = regex.exec "#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval}"
+      match = regex.exec "#{baseInput} --from=#{from} --size=#{size} --attempts=#{attempts} --interval=#{interval}"
       expect match[1]
-        .to.be.equal url
+        .to.be.equal productId
       expect match[2]
         .to.be.equal from
       expect match[3]
-        .to.be.equal attempts
+        .to.be.equal size
       expect match[4]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[5]
-        .to.be.equal undefined
+        .to.be.equal interval
       expect match[6]
         .to.be.equal undefined
+      expect match[7]
+        .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --size=#{size} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}\"", ->
 
-    it 'gets item url, from, attempts, interval and concurrency', ->
+    it 'gets item productId, from, size, attempts, interval and concurrency', ->
 
-      match = regex.exec "#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}"
+      match = regex.exec "#{baseInput} --from=#{from} --size=#{size} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency}"
       expect match[1]
-        .to.be.equal url
+        .to.be.equal productId
       expect match[2]
         .to.be.equal from
       expect match[3]
-        .to.be.equal attempts
+        .to.be.equal size
       expect match[4]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[5]
+        .to.be.equal interval
+      expect match[6]
         .to.be.equal concurrency
-      expect match[6]
+      expect match[7]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --size=#{size} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}\"", ->
 
-    it 'gets item url, from, attempts, interval, concurrency and users', ->
+    it 'gets item productId, size, from, attempts, interval, concurrency and users', ->
 
-      match = regex.exec "#{baseInput} --from=#{from} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}"
+      match = regex.exec "#{baseInput} --from=#{from} --size=#{size} --attempts=#{attempts} --interval=#{interval} --concurrency=#{concurrency} --users=#{users}"
       expect match[1]
-        .to.be.equal url
+        .to.be.equal productId
       expect match[2]
         .to.be.equal from
       expect match[3]
-        .to.be.equal attempts
+        .to.be.equal size
       expect match[4]
-        .to.be.equal interval
+        .to.be.equal attempts
       expect match[5]
-        .to.be.equal concurrency
+        .to.be.equal interval
       expect match[6]
+        .to.be.equal concurrency
+      expect match[7]
         .to.be.equal users
