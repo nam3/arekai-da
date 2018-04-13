@@ -9,7 +9,7 @@
 #   MONGODB_DATABASE
 #
 # Commands:
-#   arekai-da: dominator snkrs PRODUCT_ID(e.g: AJ7291-002) --from=1986-12-02T00:00:00 --size=10(US size only) --attempts=248 --interval=2048 --concurrency=1 --users=user001,user002
+#   arekai-da: dominator snkrs PRODUCT_ID(e.g: AJ7291-002) --from=1986-12-02T00:00:00 --size=10(US size only)or C6(child size) --attempts=248 --interval=2048 --concurrency=1 --users=user001,user002
 #
 # Author:
 #   JumpeiArashi
@@ -19,7 +19,7 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /dominator\s+snkrs\s+([\w-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--size=([\d.]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--concurrency=([\d]+)|)(?:\s*--users=([\w_,]+)|)$/, (res) ->
+  robot.respond /dominator\s+snkrs\s+([\w-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--size=([C\d.]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--concurrency=([\d]+)|)(?:\s*--users=([\w_,]+)|)$/, (res) ->
 
     if res.match[7]
       userIds = res.match[7].split(',')
