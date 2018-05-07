@@ -76,7 +76,7 @@ describe 'dominator_supreme_mobile', ->
 
   context "with input = \"#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --recaptcha-mode=#{recaptchaFetcherMode}\"", ->
     it 'gets search keyword, from, color, size, attempts and interval', ->
-      match = regex.exec "#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --recaptcha=mode=#{recaptchaFetcherMode}"
+      match = regex.exec "#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --recaptcha-mode=#{recaptchaFetcherMode}"
       expect match[1]
         .to.be.equal keyword
       expect match[2]
@@ -94,9 +94,9 @@ describe 'dominator_supreme_mobile', ->
       expect match[8]
         .to.be.equal undefined
 
-  context "with input = \"#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --recaptcha=mode=#{recaptchaFetcherMode} --users=#{users}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --recaptcha-mode=#{recaptchaFetcherMode} --users=#{users}\"", ->
     it 'gets search keyword, from, color, size, attempts, interval and users', ->
-      match = regex.exec "#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval}  --recaptcha=mode=#{recaptchaFetcherMode}--users=#{users}"
+      match = regex.exec "#{baseInput} --from=#{from} --color=#{color} --size=#{size} --attempts=#{attempts} --interval=#{interval} --recaptcha-mode=#{recaptchaFetcherMode}--users=#{users}"
       expect match[1]
         .to.be.equal keyword
       expect match[2]
