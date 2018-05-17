@@ -2,7 +2,7 @@
 
 Helper = require '../../helper'
 
-describe.only 'dominator_chocolate_jesus', ->
+describe 'dominator_chocolate_jesus', ->
   keyword = 'GIRLS'
   searchUrl = 'http://shop.chocolatejesus.jp/?mode=grp&gid=1082518&sort=n'
   baseInput = "test-robot: dominator chocolate \"#{keyword}\" --search=#{searchUrl}"
