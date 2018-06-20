@@ -4,8 +4,8 @@ Helper = require '../../helper'
 
 describe 'dominator_atmos', ->
 
-  url = 'http://www.atmos-tokyo.com/category/SHOES/725066_006.html'
-  baseInput = "test-robot: dominator atmos #{url}"
+  itemId = 'aq1090-100a280cmowht00'
+  baseInput = "test-robot: dominator atmos #{itemId}"
   from = '1986-12-02T00:00:00'
   concurrency = 1
   paymentMethod = 'credit-card'
@@ -21,7 +21,7 @@ describe 'dominator_atmos', ->
 
       match = regex.exec baseInput
       expect match[1]
-        .to.be.equal url
+        .to.be.equal itemId
 
   context "with input = \"#{baseInput} --from=#{from} --concurrency=#{concurrency} --attempts=#{attempts} --interval=#{interval}\"", ->
 
@@ -29,7 +29,7 @@ describe 'dominator_atmos', ->
 
       match = regex.exec "#{baseInput} --from=#{from} --concurrency=#{concurrency} --attempts=#{attempts} --interval=#{interval}"
       expect match[1]
-        .to.be.equal url
+        .to.be.equal itemId
       expect match[2]
         .to.be.equal from
       expect Number(match[3])
@@ -51,7 +51,7 @@ describe 'dominator_atmos', ->
 
       match = regex.exec "#{baseInput} --from=#{from} --concurrency=#{concurrency} --attempts=#{attempts} --interval=#{interval} --jobConcurrency=#{jobConcurrency}"
       expect match[1]
-        .to.be.equal url
+        .to.be.equal itemId
       expect match[2]
         .to.be.equal from
       expect Number(match[3])
@@ -73,7 +73,7 @@ describe 'dominator_atmos', ->
 
       match = regex.exec "#{baseInput} --from=#{from} --concurrency=#{concurrency} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --jobConcurrency=#{jobConcurrency}"
       expect match[1]
-      .to.be.equal url
+      .to.be.equal itemId
       expect match[2]
       .to.be.equal from
       expect Number(match[3])
@@ -95,7 +95,7 @@ describe 'dominator_atmos', ->
 
       match = regex.exec "#{baseInput} --from=#{from} --concurrency=#{concurrency} --payment-method=#{paymentMethod} --attempts=#{attempts} --interval=#{interval} --jobConcurrency=#{jobConcurrency} --users=#{users}"
       expect match[1]
-        .to.be.equal url
+        .to.be.equal itemId
       expect match[2]
         .to.be.equal from
       expect Number(match[3])
