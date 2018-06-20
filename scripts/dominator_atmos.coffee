@@ -20,7 +20,7 @@ utils = require './utils/hubot'
 
 module.exports = (robot) ->
 
-  robot.respond /dominator\s+atmos\s+(https?:\/\/[\w/:%#$&?()~.=+_-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--concurrency=([\d]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--jobConcurrency=([\d]+)|)(?:\s*--users=([\w_,]+)|)$/, (res) ->
+  robot.respond /dominator\s+atmos\s+([\w-]+)(?:\s*--from=([T\d:-]+)|)(?:\s*--concurrency=([\d]+)|)(?:\s*--payment-method=([\w-]+)|)(?:\s*--attempts=([\d]+)|)(?:\s*--interval=([\d]+)|)(?:\s*--jobConcurrency=([\d]+)|)(?:\s*--users=([\w_,]+)|)$/, (res) ->
 
     if res.match[8]
       userIds = res.match[8].split(',')
