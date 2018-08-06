@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:8.11.3
+      - image: mongo:3.6.6
+    working_directory: /opt/nam3/arekai-da
+    steps:
+      - checkout
+      - run:
+          name: npm install
+          command: |
+            npm install
+      - run:
+          name: npm test
+          command: |
+            npm test
