@@ -1,7 +1,7 @@
 {expect} = require 'chai'
 Helper = require '../../helper'
 
-describe.only 'dominator_supreme_another_tab', ->
+describe 'dominator_supreme_another_tab', ->
   keyword = 'Boxer Briefs'
   baseInput = "test-robot: dominator supreme-another-tab \"#{keyword}\""
   from = '1986-12-02T00:00:00'
