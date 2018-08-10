@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm install && hubot --adapter slack --name 'areka-da'",
     "development": "hubot --adapter slack --name 'areka-da'",
-    "test": "mocha test/ && npm run lint",
+    "test": "mocha --exit test/ && npm run lint",
     "lint": "coffeelint scripts && coffeelint test",
     "update-dominator": "sh ./run-scripts/update-dominator.sh"
   },
@@ -32,39 +32,39 @@
     "hubot-diagnostics": "0.0.1",
     "hubot-help": "^0.2.0",
     "hubot-slack": "^4.3.4",
-    "lodash": "^4.17.4",
-    "moment-timezone": "^0.5.13",
+    "lodash": "^4.17.10",
+    "moment-timezone": "^0.5.21",
     "node-uuid": "^1.4.8",
-    "request": "^2.81.0"
+    "request": "^2.87.0"
   },
   "devDependencies": {
-    "@types/agenda": "^0.8.33",
-    "@types/cheerio": "^0.22.1",
-    "@types/lodash": "^4.14.64",
-    "@types/mongoose": "^4.7.13",
-    "@types/node-forge": "^0.6.8",
+    "@types/agenda": "^0.8.34",
+    "@types/cheerio": "^0.22.8",
+    "@types/lodash": "^4.14.116",
+    "@types/node-forge": "^0.6.11",
     "@types/winston": "^2.3.2",
     "chai": "^3.5.0",
     "coffee-script": "^1.12.6",
     "coffeelint": "^1.16.0",
     "hubot-mock-adapter": "^1.0.0",
-    "mocha": "^3.4.2",
+    "mocha": "^5.2.0",
     "promise-test-helper": "^0.2.1",
     "sinon": "^2.3.1",
     "supertest": "^3.0.0",
-    "ts-loader": "^2.3.2",
-    "typescript": "2.3.x",
-    "webpack": "^3.5.4"
+    "ts-loader": "^4.4.2",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
   },
   "peerDependencies": {
-    "ts-loader": "^2.3.2",
-    "typescript": "2.3.x",
-    "webpack": "^3.5.4",
+    "ts-loader": "^4.4.2",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
     "@types/agenda": "^0.8.33",
-    "@types/cheerio": "^0.22.1",
-    "@types/lodash": "^4.14.64",
-    "@types/mongoose": "^4.7.13",
-    "@types/node-forge": "^0.6.8",
+    "@types/cheerio": "^0.22.8",
+    "@types/lodash": "^4.14.116",
+    "@types/node-forge": "^0.6.11",
     "@types/winston": "^2.3.2"
   }
 }
