@@ -1,16 +1,17 @@
 {expect} = require 'chai'
 Helper = require '../../helper'
 
-describe 'dominator_chocolate_jesus', ->
+describe 'dominator_rakuten_search', ->
   keyword = '861428-061'
   searchUrl = 'https://item.rakuten.co.jp/mitasneakers/c/0000000100/?s=4&i=1#risFil'
-  baseInput = "test-robot: dominator rakuten-mita \"#{keyword}\" --search=#{searchUrl}"
+  baseInput = "test-robot: dominator rakuten-search \"#{keyword}\" --search=#{searchUrl}"
   from = '1986-12-02T00:00:00'
   size = '27.0'
+  pollingInterval = 10000
   attempts = 3
   interval = 2000
   users = 'user001,user002'
-  regex = Helper.importDispatcherRegex require '../../../scripts/dominator_rakuten_mita_sneakers'
+  regex = Helper.importDispatcherRegex require '../../../scripts/dominator_rakuten_search'
   context "with input = \"#{baseInput} --from=#{from} --size=#{size}\"", ->
     it 'gets item url, from, size', ->
       match = regex.exec "#{baseInput} --from=#{from} --size=#{size}"
@@ -30,9 +31,9 @@ describe 'dominator_chocolate_jesus', ->
         .to.be.equal undefined
       expect match[8]
         .to.be.equal undefined
-  context "with input = \"#{baseInput} --from=#{from} --size=#{size} --attempts=#{attempts} --interval=#{interval} --users=#{users}\"", ->
+  context "with input = \"#{baseInput} --from=#{from} --size=#{size} --polling-interval=#{pollingInterval} --attempts=#{attempts} --interval=#{interval} --users=#{users}\"", ->
     it 'gets item url, from, size', ->
-      match = regex.exec "#{baseInput} --from=#{from} --size=#{size} --attempts=#{attempts} --interval=#{interval} --users=#{users}"
+      match = regex.exec "#{baseInput} --from=#{from} --size=#{size} --polling-interval=#{pollingInterval} --attempts=#{attempts} --interval=#{interval} --users=#{users}"
       expect match[1]
         .to.be.equal keyword
       expect match[2]
@@ -42,8 +43,10 @@ describe 'dominator_chocolate_jesus', ->
       expect match[4]
         .to.be.equal size
       expect Number(match[5])
-        .to.be.equal attempts
+        .to.be.equal pollingInterval
       expect Number(match[6])
+        .to.be.equal attempts
+      expect Number(match[7])
         .to.be.equal interval
-      expect match[7]
+      expect match[8]
         .to.be.equal users
