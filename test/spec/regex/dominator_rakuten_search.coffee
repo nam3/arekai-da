@@ -4,7 +4,7 @@ Helper = require '../../helper'
 describe 'dominator_rakuten_search', ->
   keyword = '861428-061'
   searchUrl = 'https://item.rakuten.co.jp/mitasneakers/c/0000000100/?s=4&i=1#risFil'
-  baseInput = "test-robot: dominator rakuten-mita \"#{keyword}\" --search=#{searchUrl}"
+  baseInput = "test-robot: dominator rakuten-search \"#{keyword}\" --search=#{searchUrl}"
   from = '1986-12-02T00:00:00'
   size = '27.0'
   pollingInterval = 10000
