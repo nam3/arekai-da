@@ -39,10 +39,10 @@
   },
   "devDependencies": {
     "@types/agenda": "^0.8.34",
-    "@types/cheerio": "^0.22.8",
-    "@types/lodash": "^4.14.116",
+    "@types/cheerio": "^0.22.10",
+    "@types/lodash": "^4.14.118",
     "@types/node-forge": "^0.6.11",
-    "@types/winston": "^2.3.2",
+    "@types/winston": "^2.4.4",
     "chai": "^3.5.0",
     "coffee-script": "^1.12.6",
     "coffeelint": "^1.16.2",
