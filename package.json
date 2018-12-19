@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/nam3/arekai-da#readme",
   "dependencies": {
-    "arekai-da-plugins": "JumpeiArashi/arekai-da-plugins",
     "cron": "^1.5.0",
     "dominator": "git+ssh://git@github.com/JumpeiArashi/dominator.git#851e5926ec7322734f475993bb8bea6036214ec9",
     "hubot": "^2.19.0",
