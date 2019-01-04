@@ -26,7 +26,7 @@
   "homepage": "https://github.com/nam3/arekai-da#readme",
   "dependencies": {
     "cron": "^1.5.0",
-    "dominator": "git+ssh://git@github.com/JumpeiArashi/dominator.git#ff0c278182800925222a79283eeba2a0ea9eeec6",
+    "dominator": "git+ssh://git@github.com/JumpeiArashi/dominator.git#dfd5b8925c25d92048caef878a4a036f2b544c3a",
     "hubot": "^2.19.0",
     "hubot-diagnostics": "0.0.1",
     "hubot-help": "^0.2.0",
