@@ -31,7 +31,7 @@
     "hubot-diagnostics": "0.0.1",
     "hubot-help": "^0.2.0",
     "hubot-slack": "^4.5.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "moment-timezone": "^0.5.23",
     "node-uuid": "^1.4.8",
     "request": "^2.88.0"
@@ -45,7 +45,7 @@
     "chai": "^3.5.0",
     "coffee-script": "^1.12.6",
     "coffeelint": "^1.16.2",
-    "hubot-mock-adapter": "^1.0.0",
+    "hubot-mock-adapter": "^1.1.1",
     "mocha": "^5.2.0",
     "promise-test-helper": "^0.2.1",
     "sinon": "^2.3.1",
